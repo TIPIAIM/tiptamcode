@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     sitemap({
       hostname: "https://tiptamcode.com", //si tu ne lie pas sa ne marchera pas
-      routes: ["/services", "/contact ", "apropos", "realisation", "/"],
+      routes: ["/","/services", "/contact ", "apropos", "realisation", ],
     }), // Remplace par ton domaine
   ],
 
