@@ -11,6 +11,7 @@ import Navbarrr from "./composant/Navbarrr";
 import Contacnous from "./composant/contact/Contacnous";
 import Realisations from "./composant/Realisation/Realisations";
 import Erreurr from "./composant/Erreur";
+import StructuredData from "./Donnestructure";
 export default function App() {
   useEffect(() => {
     AOS.init({
@@ -23,6 +24,7 @@ export default function App() {
       <BrowserRouter>
         {" "}
         <Navbarrr />
+        <StructuredData />
         <Routes>
           <Route index element={<Hero />} />
           <Route path="*" element={<Erreurr />} />
