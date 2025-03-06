@@ -12,6 +12,19 @@ export default defineConfig({
   ],
 
   build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react")) return "vendor-react"; // Sépare React
+            if (id.includes("lucide-react")) return "icons"; // Sépare les icônes
+            return "vendor"; // Groupe les autres libs
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Augmente la limite (1000 = 1 Mo)
     outDir: "dist", // Assurez-vous que la sortie est "dist"
+    sourcemap: true,
   },
 });
