@@ -5,7 +5,7 @@ import sitemap from 'vite-plugin-sitemap';
 export default defineConfig({
   plugins: [
     react(),
-    sitemap({ hostname: 'https://https://tiptamcode.vercel.app',
+    sitemap({ hostname: 'https://tiptamcode.vercel.app',
       routes: ["/services", "/contact ", 
         "apropos","realisation","/"]
      }) // Remplace par ton domaine
