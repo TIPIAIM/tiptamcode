@@ -1,4 +1,4 @@
-
-User-agent: bingbot
+User-agent: *
 Allow: /
+
 Sitemap: https://tiptamcode.com/sitemap.xml

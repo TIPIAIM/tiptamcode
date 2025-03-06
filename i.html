@@ -72,36 +72,38 @@
     <link rel="alternate" hreflang="fr" href="https://www.tiptamcode.com/fr" />
     <!-- Favicon Modernes -->
     <!-- Schema.org -->
-    <script type="application/ld+json">
+<!-- Schema.org corrigé -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TIPTAMCode",
+    "image": "https://www.tiptamcode.com/tiptamcode.avif",
+    "logo": "https://www.tiptamcode.com/tiptamcode.avif",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Conakry",
+      "addressCountry": "GN"
+    },
+    "service": [
       {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "TIPTAMCode",
-        "image": "https://www.tiptamcode.com/tiptamcode",
-
-
-        "@type": "Organization",
-        "logo": "https://www.tiptamcode/tiptamcode.avif" ,
-
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Conakry",
-          "addressCountry": "GN"
-        },
-        "service": [
-          {
-            "@type": "Service",
-            "name": "Formation Développement Web",
-            "description": "Formations pratiques en React, Node.js et JavaScript,deployement et autres ...""
-          },
-          {
-            "@type": "Service",
-            "name": "Développement de Sites Web",
-            "description": "Création de sites vitrines et sur mesure et autres ... ""
-          }
-        ]
+        "@type": "Service",
+        "name": "Formation Développement Web",
+        "description": "Formations pratiques en React, Node.js et JavaScript, déploiement et autres..."
+      },
+      {
+        "@type": "Service",
+        "name": "Développement de Sites Web",
+        "description": "Création de sites vitrines et sur mesure et autres..."
       }
-    </script>
+    ]
+  }
+  </script>
+  
+  <!-- Favicon corrigé -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <!-- Favicon corrigé -->
+  <link rel="icon" type="image/png" href="/favicon.png">
   </head>
   <body>
     <div id="root"></div>
