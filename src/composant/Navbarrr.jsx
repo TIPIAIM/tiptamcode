@@ -137,19 +137,9 @@ const NavLink = styled.a`
   }
 `;
 
-
-// Indicateur de sous-menu (flèche)
-const SubMenuIndicator = styled.span`
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
-  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-`;
-
-
 export default function BardeNavigationpublic() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [openSubMenu, setOpenSubMenu] = useState(null);
 
   // Gérer le défilement
   useEffect(() => {

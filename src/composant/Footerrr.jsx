@@ -213,10 +213,12 @@ const Footer = () => {
       >
         <GridContainer>
           {/* Section Coordonnées */}
-          <ContactSection variants={itemVariants} itemScope itemType="https://schema.org/PostalAddress">
-            <SectionTitle whileHover={{ scale: 1.05 }}>
-              Notre Agence
-            </SectionTitle>
+          <ContactSection
+            variants={itemVariants}
+            itemScope
+            itemType="https://schema.org/PostalAddress"
+          >
+            <SectionTitle whileHover={{ scale: 1.05 }}>TIPTAMCode</SectionTitle>
 
             <ContactItem>
               <FaMapMarkerAlt />
@@ -224,7 +226,9 @@ const Footer = () => {
             </ContactItem>
 
             <ContactItem>
-              <span style={{ visibility: 'hidden' }}><FaMapMarkerAlt /></span>
+              <span style={{ visibility: "hidden" }}>
+                <FaMapMarkerAlt />
+              </span>
               <span>
                 <span itemProp="postalCode">T7</span>{" "}
                 <span itemProp="addressLocality">Conakry</span>
@@ -243,9 +247,7 @@ const Footer = () => {
               <a href="mailto:alpha.diallo@tiptamcode.com" itemProp="email">
                 Technique.info@tiptamcode.com
               </a>
-              
             </ContactItem>
-            
           </ContactSection>
 
           {/* Section Réseaux sociaux */}
@@ -284,9 +286,7 @@ const Footer = () => {
 
           {/* Section Légal */}
           <LegalSection variants={itemVariants}>
-            <SectionTitle whileHover={{ scale: 1.05 }}>
-              Légal
-            </SectionTitle>
+            <SectionTitle whileHover={{ scale: 1.05 }}>Légal</SectionTitle>
 
             {[
               { path: "mentions-legales", label: "Mentions légales" },
