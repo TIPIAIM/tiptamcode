@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
-import SEO from '../Seo.jsx'
+import SEO from "../Seo.jsx";
 // Styles responsives avec styled-components
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -89,14 +89,11 @@ const MessageText = styled.p`
   }
 `;
 const Accueil = () => {
-  const seoProps = {
-    title: "TIPTAMCode Agence de Développement Web Professionnelle ",
-    description:
-      "Création de sites vitrines et dynamiques avec bases de données, formations et conseils en bonnes pratiques",
-    keywords:
-      "développement web, site vitrine, formation react, bonnes pratiques",
-  };
-
+  <SEO
+    title="TIPTAMCode - Dév & Formation Tech - Solutions Digitales"
+    description="TIPTAMCode propose des services de développement web sur mesure, des formations en informatique et des solutions digitales adaptées à vos besoins. Création de sites web, applications et conseils en IT."
+    keywords="Développement web, Création site internet, Formation informatique , Solutions digitales, Développement web Conakry, Hébergement web, Deployement des solutions, Référencement SEO, Conseil en informatique, Site web responsive, Programmation web, Formation React, Formation JavaScript, CMS personnalisé, Site e-commerce"
+  />;
 
   const messages = [
     "Des solutions sur mesure pour booster votre présence en ligne",
@@ -110,130 +107,130 @@ const Accueil = () => {
     "Sécurité et performances au cœur de nos réalisations",
     "Formation et conseils pour réussir votre projet digital",
   ];
-    
-    const [currentMessage, setCurrentMessage] = useState(0);
-    const canvasRef = useRef(null);
-  
-    useEffect(() => {
-      AOS.init({
-        duration: 1000,
-        once: true,
-      });
-  
-      const interval = setInterval(() => {
-        setCurrentMessage((prev) => (prev + 1) % messages.length);
-      }, 2000);
-  
-      return () => clearInterval(interval);
-    }, []);
-  
-    useEffect(() => {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-  
-      const particles = [];
-      const bubbles = [];
-  
-      class Particle {
-        constructor(x, y, size, speedX, speedY) {
-          this.x = x;
-          this.y = y;
-          this.size = size;
-          this.speedX = speedX;
-          this.speedY = speedY;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          if (this.size > 0.2) this.size -= 0.02;
-        }
-        draw() {
-          ctx.fillStyle = "rgba(185, 111, 51, 0.7)";
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
+
+  const [currentMessage, setCurrentMessage] = useState(0);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    const interval = setInterval(() => {
+      setCurrentMessage((prev) => (prev + 1) % messages.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const bubbles = [];
+
+    class Particle {
+      constructor(x, y, size, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.02;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(185, 111, 51, 0.7)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Bubble {
+      constructor(x, y, size, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedY = speedY;
+      }
+      update() {
+        this.y -= this.speedY;
+        if (this.y < -10) this.y = canvas.height + 10;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(160, 119, 83, 0.5)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function createParticles(e) {
+      for (let i = 0; i < 5; i++) {
+        particles.push(
+          new Particle(
+            e.x,
+            e.y,
+            Math.random() * 5 + 2,
+            Math.random() * 4 - 2,
+            Math.random() * 4 - 2
+          )
+        );
+      }
+    }
+
+    function createBubbles() {
+      for (let i = 0; i < 15; i++) {
+        bubbles.push(
+          new Bubble(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+            Math.random() * 10 + 5,
+            Math.random() * 2 + 1
+          )
+        );
+      }
+    }
+    createBubbles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].size <= 0.2) {
+          particles.splice(i, 1);
+          i--;
         }
       }
-  
-      class Bubble {
-        constructor(x, y, size, speedY) {
-          this.x = x;
-          this.y = y;
-          this.size = size;
-          this.speedY = speedY;
-        }
-        update() {
-          this.y -= this.speedY;
-          if (this.y < -10) this.y = canvas.height + 10;
-        }
-        draw() {
-          ctx.fillStyle = "rgba(160, 119, 83, 0.5)";
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
+      for (let bubble of bubbles) {
+        bubble.update();
+        bubble.draw();
       }
-  
-      function createParticles(e) {
-        for (let i = 0; i < 5; i++) {
-          particles.push(
-            new Particle(e.x, e.y, Math.random() * 5 + 2, Math.random() * 4 - 2, Math.random() * 4 - 2)
-          );
-        }
-      }
-  
-      function createBubbles() {
-        for (let i = 0; i < 15; i++) {
-          bubbles.push(
-            new Bubble(
-              Math.random() * canvas.width,
-              Math.random() * canvas.height,
-              Math.random() * 10 + 5,
-              Math.random() * 2 + 1
-            )
-          );
-        }
-      }
-      createBubbles();
-  
-      function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-          if (particles[i].size <= 0.2) {
-            particles.splice(i, 1);
-            i--;
-          }
-        }
-        for (let bubble of bubbles) {
-          bubble.update();
-          bubble.draw();
-        }
-        requestAnimationFrame(animateParticles);
-      }
-  
-      window.addEventListener("mousemove", createParticles);
-      animateParticles();
-  
-      return () => window.removeEventListener("mousemove", createParticles);
-    }, []);
-  
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener("mousemove", createParticles);
+    animateParticles();
+
+    return () => window.removeEventListener("mousemove", createParticles);
+  }, []);
+
   return (
     <HeroSection>
       <Canvas ref={canvasRef} />
 
       <ContentWrapper>
-        <MainHeading
-          data-aos="zoom-in"
-          data-aos-delay="100"
-        >
-          Votre Partenaire en {" "}
-          <GradientText>
-            Développement Web
-          </GradientText>
+        <MainHeading data-aos="zoom-in" data-aos-delay="100">
+          Votre Partenaire en <GradientText>Développement Web</GradientText>
         </MainHeading>
 
         <MessageText
