@@ -97,7 +97,7 @@ const Accueil = () => {
 
   const messages = [
     "Des solutions sur mesure pour booster votre présence en ligne",
-    "Une expertise en React, Node.js et bien plus encore",
+    "Une expertise en React, Node.js, express, mongodb et bien plus encore",
     "Transformez vos idées en réalité digitale avec nous",
     "Sites web performants et adaptés à vos besoins",
     "Optimisation SEO et accompagnement personnalisé",
