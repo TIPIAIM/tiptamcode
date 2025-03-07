@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
@@ -9,32 +9,26 @@ import Temoignage from "./Temoignge";
 import Realisation3 from "./Realisation3";
 
 // generateServiceSchema
-{
-  /**
-  Ces adaptations améliorent votre référencement naturel et permettent aux moteurs de recherche d'afficher des extraits enrichis (rich snippets) dans les résultats.
-  */
-}
-
 const generateServiceSchema = (services) => ({
   "@context": "https://schema.org",
-  "@type": "Service", //// Type principal de l'entité
-  serviceType: "Développement web", //// Domaine principal de services
+  "@type": "Service",
+  serviceType: "Développement web",
   provider: {
     "@type": "Organization",
-    name: "TIPTAMCode", // ➔ Remplacez par le nom légal  // Nom officiel de votre entreprise
-    url: "https://www.tiptamcode.com", // URL principale de votre site
+    name: "TIPTAMCode",
+    url: "https://www.tiptamcode.com",
   },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Services de développement web", // Titre global du catalogue
+    name: "Services de développement web",
     itemListElement: services.map((service, index) => ({
       "@type": "Offer",
-      position: index + 1, // Ordre d'affichage des services
+      position: index + 1,
       itemOffered: {
         "@type": "Service",
-        name: service.title, // Nom du service (doit correspondre au contenu visib
-        description: service.description, // Description concise 150-300 caractères
-        serviceOutput: service.backContent.join(", "), // Détails techniques // ➔ Mots-clés techniques
+        name: service.title,
+        description: service.description,
+        serviceOutput: service.backContent.join(", "),
       },
     })),
   },
@@ -42,10 +36,8 @@ const generateServiceSchema = (services) => ({
     "@type": "Service",
     name: "Création De Sites Web Professionnels",
     description: "Développement sur mesure avec React, Angular et autres",
-    serviceOutput:
-      "Site vitrine, Application web, E-commerce, Optimisation SEO,...",
+    serviceOutput: "Site vitrine, Application web, E-commerce, Optimisation SEO,...",
     serviceUrl: "/services",
-    //priceRange: "€€€€",
     areaServed: ["Gunée", "France", "Belgique", "Luxembourg"],
   },
 });
@@ -110,6 +102,7 @@ const ServicesGrid = styled.div`
 const ServiceCard = styled(motion.article)`
   height: 450px;
   perspective: 1000px;
+  will-change: transform; /* Optimisation des animations */
 
   &:hover .card-inner {
     transform: rotateY(180deg);
@@ -217,13 +210,11 @@ const BackContentItem = styled.li`
 `;
 
 const Services = () => {
-  // Services déclarés avant utilisation
   const services = [
     {
       title: "Création De Sites Web Professionnels",
       subtitle: "Solutions digitales performantes",
-      description:
-        "Développement sur mesure avec technologies modernes (React, Next.js, Node.js)",
+      description: "Développement sur mesure avec technologies modernes (React, Next.js, Node.js)",
       backContent: [
         "Site vitrine responsive",
         "Application web complexe",
@@ -275,13 +266,10 @@ const Services = () => {
   ];
 
   const seoProps = {
-    title:
-      "Services de Développement Web | TIPTAMCode Agence Professionnelle de dev web",
-    description:
-      "Création de sites vitrines et applications web sur mesure avec stratégie SEO intégrée - Développement Front-end et Back-end - Formation React/Next.js",
-    keywords:
-      "développement web et mobile , création site internet complexe , e-commerce, application web, référencement naturel, formation React et dev web, bonnes pratiques développement",
-    schemaMarkup: generateServiceSchema(services), // Utilisé après déclaration
+    title: "Services de Développement Web | TIPTAMCode Agence Professionnelle de dev web",
+    description: "Création de sites vitrines et applications web sur mesure avec stratégie SEO intégrée - Développement Front-end et Back-end - Formation React/Next.js",
+    keywords: "développement web et mobile , création site internet complexe , e-commerce, application web, référencement naturel, formation React et dev web, bonnes pratiques développement",
+    schemaMarkup: generateServiceSchema(services),
   };
 
   useEffect(() => {
@@ -302,6 +290,7 @@ const Services = () => {
         <Accueilpourlesautres />
 
         <Header>
+          
           <Title
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -354,8 +343,7 @@ const Services = () => {
                         itemScope
                         itemType="https://schema.org/ListItem"
                       >
-                        <meta itemProp="position" content={i + 1} />{" "}
-                        {/* Ajout de la position */}
+                        <meta itemProp="position" content={i + 1} />
                         <span itemProp="name">{item}</span>
                       </BackContentItem>
                     ))}
@@ -376,4 +364,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default React.memo(Services);

@@ -263,6 +263,7 @@ export default function Contact() {
         <script type="application/ld+json">
           {JSON.stringify(createSchemaMarkup())}
         </script>
+        <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
       </Helmet>
 
       <Acueilpourlesautres />

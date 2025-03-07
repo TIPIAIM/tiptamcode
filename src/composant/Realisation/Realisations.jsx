@@ -444,6 +444,7 @@ const Realisations = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateProjectSchema())}
         </script>
+        <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
       </Helmet>
       <Acueilpourlesautres />
       <ProjectsContainer>

@@ -1,25 +1,32 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Rocket, Code, Users, Globe } from "lucide-react";
+import { Rocket, Code} from "lucide-react";
 import { Helmet } from "react-helmet";
-
+import React from "react";
 import Seo from "../Seo";
+
+
+const colors = {
+  primary: "#b96f33",
+  secondary: "#011d23",
+  background: "#f4f5f1",
+};
+
+const breakpoints = {
+  small: "480px",
+  medium: "768px",
+  large: "992px",
+  xlarge: "1200px",
+};
+
 const AboutContainer = styled.section`
   padding: 2rem 1rem;
-  background: #f4f5f1;
+  background: ${colors.background};
   position: relative;
   overflow: hidden;
 
-  @media (min-width: 480px) {
+  @media (min-width: ${breakpoints.small}) {
     padding: 3rem 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    padding: 4rem 2rem;
-  }
-
-  @media (min-width: 1200px) {
-    padding: 6rem 2rem;
   }
 `;
 
@@ -276,8 +283,7 @@ const APropos = () => {
       height: 630,
     },
   });
-
-  return (
+ return (
     <>
       <Seo
         title="À propos de TIPTAMCode - Expertise en Développement Web"
@@ -289,7 +295,7 @@ const APropos = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateStructuredData())}
         </script>
-
+        <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
         <meta
           property="og:image"
           content="https://www.tiptamcode.com/img/tiptamecode.avif"
@@ -310,6 +316,8 @@ const APropos = () => {
           >
             <MainVisual
               src="/img/euipeaod.avif"
+              srcSet="/img/euipeaod-480.avif 480w, /img/euipeaod-768.avif 768w, /img/euipeaod-1200.avif 1200w"
+              sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
               alt="Équipe TIPTAMCode collaborant sur un projet digital"
               loading="lazy"
             />
@@ -342,23 +350,25 @@ const APropos = () => {
               <StatCard
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                aria-labelledby="stat-1"
               >
                 <StatValue>
-                  <Rocket size={32} />
+                  <Rocket size={32} aria-hidden="true" />
                   10+
                 </StatValue>
-                <StatLabel>Projets innovants réalisés</StatLabel>
+                <StatLabel id="stat-1">Projets innovants réalisés</StatLabel>
               </StatCard>
 
               <StatCard
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                aria-labelledby="stat-2"
               >
                 <StatValue>
-                  <Code size={32} />
+                  <Code size={32} aria-hidden="true" />
                   98%
                 </StatValue>
-                <StatLabel>Taux de satisfaction client</StatLabel>
+                <StatLabel id="stat-2">Taux de satisfaction client</StatLabel>
               </StatCard>
             </StatsGrid>
           </TextContent>
@@ -367,24 +377,24 @@ const APropos = () => {
         <TeamSection>
           <TeamTitle initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
             Rencontrez l'
-            <Highlight style={{ color: "#b96f33" }}>Équipe</Highlight>
+            <Highlight style={{ color: colors.primary }}>Équipe</Highlight>
           </TeamTitle>
 
           <TeamGrid>
             {[
               {
                 name: "Mamadou Marietou",
-                role: " Co-Fondateur : Assure les formations, la maintenance et autres ",
+                role: "Co-Fondateur : Assure les formations, la maintenance et autres",
                 photo: "/img/mariatou1.avif",
               },
               {
                 name: "Diallo Alpha ousmane",
-                role: "Co-Fondateur : Assure les formations, le develloppement Full stack et autres ",
+                role: "Co-Fondateur : Assure les formations, le développement Full stack et autres",
                 photo: "/img/soum4-6.avif",
               },
               {
                 name: "Paul lamah",
-                role: "Avocat ( Conseiller ) : Assure les formations, les partenariats, les conseil juridique ... ",
+                role: "Avocat (Conseiller) : Assure les formations, les partenariats, les conseils juridiques...",
                 photo: "/img/paul.avif",
               },
             ].map((member, index) => (
@@ -392,11 +402,13 @@ const APropos = () => {
                 key={index}
                 initial={{ opacity: 0.5, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 1 }}
-                viewport={{ once: false }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
               >
                 <MemberPhoto
                   src={member.photo}
+                  srcSet={`${member.photo.replace(".avif", "-480.avif")} 480w, ${member.photo.replace(".avif", "-768.avif")} 768w, ${member.photo.replace(".avif", "-1200.avif")} 1200w`}
+                  sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
                   alt={`Portrait de ${member.name}`}
                 />
                 <MemberInfo>
@@ -412,4 +424,4 @@ const APropos = () => {
   );
 };
 
-export default APropos;
+export default React.memo(APropos);
