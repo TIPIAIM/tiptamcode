@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import { Rocket, Code } from "lucide-react";
 import { Helmet } from "react-helmet";
 import Seo from "../Seo";
+import React from "react";
 
 // Styles optimisés
 const colors = {
