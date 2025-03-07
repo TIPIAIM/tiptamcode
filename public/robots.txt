@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://www.tiptamcode.com/sitemap.xml
+Sitemap: https://tiptamcode.com/sitemap.xml
