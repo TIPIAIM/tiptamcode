@@ -287,7 +287,7 @@ const APropos = () => {
   return (
     <>
       <Seo
-        title="À propos de TIPTAMCode - Expertise en Développement Web"
+        title="À propos de TIPTAMCode-Expertise en Développement Web"
         description="Découvrez l'équipe TIPTAMCode, spécialiste en création de sites web et applications sur mesure depuis 2021. Philosophie client-centrée et résultats concrets."
         keywords="développement web, équipe technique, création de sites, applications web, satisfaction client, TIPTAMCode"
       />
@@ -395,7 +395,7 @@ const APropos = () => {
               },
               {
                 name: "Paul lamah",
-                role: "Avocat ( Conseiller ) : Assure les formations, les partenariats, les conseil juridique ... ",
+                role: "Avocat (Conseiller) : Assure les formations, les partenariats, les conseil juridique ... ",
                 photo: "/img/paul.avif",
               },
             ].map((member, index) => (
