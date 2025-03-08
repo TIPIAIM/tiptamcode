@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import styled from "styled-components";
 import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
-import Mission from "./Mission";
-import Accueilpourlesautres from "../Acueilpourlesautres";
 import Seo from "../Seo";
-import Temoignage from "./Temoignge";
-import Realisation3 from "./Realisation3";
+
+// Chargement différé des composants enfants
+const Mission = lazy(() => import("./Mission"));
+const Accueilpourlesautres = lazy(() => import("../Acueilpourlesautres"));
+const Temoignage = lazy(() => import("./Temoignge"));
+const Realisation3 = lazy(() => import("./Realisation3"));
 
 // generateServiceSchema
 const generateServiceSchema = (services) => ({
@@ -237,6 +239,7 @@ const Services = () => {
       icon: <FileText color="#b96f33" aria-hidden="true" />,
       color: "hsl(195, 42.90%, 94.50%, 0.2)",
     },
+    
     {
       title: "Marketing Digital",
       subtitle: "Stratégie de contenu",
@@ -287,10 +290,11 @@ const Services = () => {
     <div itemScope itemType="https://schema.org/Service">
       <ServicesContainer>
         <Seo {...seoProps} />
-        <Accueilpourlesautres />
+        <Suspense fallback={<div>Chargement...</div>}>
+          <Accueilpourlesautres />
+        </Suspense>
 
         <Header>
-          
           <Title
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -357,9 +361,12 @@ const Services = () => {
           ))}
         </ServicesGrid>
       </ServicesContainer>
-      <Temoignage />
-      <Mission />
-      <Realisation3 />
+
+      <Suspense fallback={<div>Chargement...</div>}>
+        <Temoignage />
+        <Mission />
+        <Realisation3 />
+      </Suspense>
     </div>
   );
 };

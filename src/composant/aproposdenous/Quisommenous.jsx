@@ -1,10 +1,11 @@
+import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Rocket, Code, Users, Globe } from "lucide-react";
+import { Rocket, Code } from "lucide-react";
 import { Helmet } from "react-helmet";
-
 import Seo from "../Seo";
-import React from "react";
+
+// Styles des composants
 const AboutContainer = styled.section`
   padding: 2rem 1rem;
   background: #f4f5f1;
@@ -53,6 +54,7 @@ const VisualSection = styled(motion.div)`
   overflow: hidden;
   min-height: 280px;
   aspect-ratio: 1;
+  will-change: transform; /* Optimisation des animations */
 
   @media (min-width: 480px) {
     aspect-ratio: 16/9;
@@ -77,7 +79,7 @@ const MainVisual = styled.img`
   filter: grayscale(20%) contrast(50%);
   transition: transform 2.8s cubic-bezier(0.23, 1, 0.32, 1);
   transform-origin: center center;
-  loading="lazy";
+  loading="lazy"; // Optimisation du chargement des images
 
   @media (hover: hover) {
     ${VisualSection}:hover & {
@@ -153,6 +155,7 @@ const StatsGrid = styled.div`
     gap: 2rem;
   }
 `;
+
 const TeamGrid = styled.div`
   display: grid;
   gap: 1.2rem;
@@ -164,6 +167,7 @@ const TeamGrid = styled.div`
     padding: 0 1rem;
   }
 `;
+
 const StatCard = styled(motion.div)`
   padding: 1.5rem;
   background: rgba(169, 111, 51, 0.05);
@@ -202,6 +206,7 @@ const TeamTitle = styled(SectionTitle)`
     background: #b96f33;
   }
 `;
+
 const TeamSection = styled.div`
   margin-top: 4rem;
   padding: 3rem 0;
@@ -211,7 +216,6 @@ const TeamSection = styled.div`
     margin-top: 6rem;
     padding: 4rem 0;
   }
-   
 `;
 
 const TeamMember = styled(motion.div)`
@@ -220,11 +224,11 @@ const TeamMember = styled(motion.div)`
   overflow: hidden;
   position: relative;
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform; // Optimisation des animations
 
   &:hover {
     transform: translateY(-10px);
   }
-   
 `;
 
 const MemberPhoto = styled.img`
@@ -233,11 +237,13 @@ const MemberPhoto = styled.img`
   object-fit: cover;
   object-position: top;
   border-bottom: 5px solid #b96f33;
+  loading="lazy"; // Optimisation du chargement des images
 
   @media (min-width: 768px) {
     height: 380px;
   }
 `;
+
 const MemberInfo = styled.div`
   padding: 1.8rem;
   text-align: center;
@@ -311,6 +317,8 @@ const APropos = () => {
           >
             <MainVisual
               src="/img/euipeaod.avif"
+              srcSet="/img/euipeaod.avif 480w, /img/euipeaod.avif 768w, /img/euipeaod.avif 1200w"
+              sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
               alt="Équipe TIPTAMCode collaborant sur un projet digital"
               loading="lazy"
             />
@@ -373,7 +381,7 @@ const APropos = () => {
 
           <TeamGrid>
             {[
-              {
+               {
                 name: "Mamadou Marietou",
                 role: " Co-Fondateur : Assure les formations, la maintenance et autres ",
                 photo: "/img/mariatou1.avif",
@@ -393,12 +401,14 @@ const APropos = () => {
                 key={index}
                 initial={{ opacity: 0.5, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 1 }}
-                viewport={{ once: false }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
               >
                 <MemberPhoto
                   src={member.photo}
+                  sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
                   alt={`Portrait de ${member.name}`}
+                  loading="lazy"
                 />
                 <MemberInfo>
                   <MemberName>{member.name}</MemberName>

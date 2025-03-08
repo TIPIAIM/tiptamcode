@@ -8,8 +8,7 @@ import abdoulayeavoc from "../../assets/abdoulayeavoc.avif";
 import mbangou from "../../assets/mbangou.avif";
 import paul from "../../assets/paul.avif";
 import naroumb from "../../assets/naroumb.avif";
-import tiptamcode from "../../assets/tiptamcode.avif";
-
+import keitaseul2 from "../../assets/keitaseul2.avif";
 
 const TestimonialContainer = styled.section`
   padding: 1rem 1rem;
@@ -54,20 +53,19 @@ const NavButton = styled.button`
   }
 `;
 
-
 const TestimonialContent = styled(motion.div)`
   max-width: 1000px;
   margin: 0 auto;
   text-align: center;
   padding: 2rem;
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
     font-size: 1.1rem;
   }
 
   @media (max-width: 480px) {
     font-size: 1rem;
     padding: 0rem 0.5rem;
-     text-align: left;
+    text-align: left;
   }
 `;
 
@@ -108,21 +106,23 @@ const AuthorInfo = styled.cite`
     color: #a07753;
     font-size: 0.9rem;
   }
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
     font-size: 1.1rem;
   }
 
   @media (max-width: 480px) {
     font-size: 1rem;
     padding: 0rem 2rem;
-     text-align: left;
-  }  
+    text-align: left;
+  }
 `;
 
 const Temoignage = () => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
+
+  // Liste des témoignages
   const testimonials = [
     {
       author: "Abdoulaye keita",
@@ -149,51 +149,56 @@ const Temoignage = () => {
       image: naroumb,
     },
     {
-      author: "Mamadou marietou",
-      role: "Directeur chez TIPTAMCode",
+      author: "Fatoumata keita",
+      role: "Associé chez AOD-Avocats",
       text: "Un accompagnement sur mesure dès le cahier des charges jusqu'au déploiement final. Je recommande vivement !",
-      image: tiptamcode,
+      image: keitaseul2,
     },
   ];
 
+  // Gestion du défilement automatique
   useEffect(() => {
     if (!isDragging) {
       const interval = setInterval(() => {
         setCurrent((prev) => (prev + 1) % testimonials.length);
       }, 6000);
-      return () => clearInterval(interval);
+      return () => clearInterval(interval); // Nettoyage de l'intervalle
     }
   }, [testimonials.length, isDragging]);
 
+  // Gestion du témoignage suivant
   const handleNext = () => {
     setDirection(1);
     setCurrent((prev) => (prev + 1) % testimonials.length);
   };
 
+  // Gestion du témoignage précédent
   const handlePrev = () => {
     setDirection(-1);
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrent(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
   };
 
- // Variants améliorés
- const variants = {
-  enter: (direction) => ({
-    x: direction > 0 ? "100%" : "-100%",
-    opacity: 0,
-    scale: 0.95,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  exit: (direction) => ({
-    x: direction < 0 ? "100%" : "-100%",
-    opacity: 0,
-    scale: 0.95,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  }),
+  // Variants pour les animations
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4, ease: "easeInOut" },
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.4, ease: "easeInOut" },
+    }),
   };
 
   return (
@@ -208,7 +213,7 @@ const Temoignage = () => {
       </Controls>
 
       <AnimatePresence mode="wait" initial={true} custom={direction}>
-      <TestimonialContent
+        <TestimonialContent
           key={current}
           custom={direction}
           variants={variants}
@@ -220,8 +225,9 @@ const Temoignage = () => {
           onDragStart={() => setIsDragging(true)}
           onDragEnd={(_, { offset, velocity }) => {
             setIsDragging(true);
-            const swipe = Math.abs(offset.x) > 100 || Math.abs(velocity.x) > 500;
-            
+            const swipe =
+              Math.abs(offset.x) > 100 || Math.abs(velocity.x) > 500;
+
             if (swipe) {
               offset.x > 0 || velocity.x > 0 ? handlePrev() : handleNext();
             }
@@ -230,6 +236,7 @@ const Temoignage = () => {
           <AuthorImage
             src={testimonials[current].image}
             alt={testimonials[current].author}
+            loading="lazy" // Optimisation du chargement des images
           />
           <Quote>
             <FaQuoteLeft />
@@ -243,15 +250,15 @@ const Temoignage = () => {
         </TestimonialContent>
       </AnimatePresence>
       <Controls>
-        <NavButton 
-          onClick={handlePrev} 
+        <NavButton
+          onClick={handlePrev}
           aria-label="Précédent"
           $active={direction === -1}
         >
           ‹
         </NavButton>
-        <NavButton 
-          onClick={handleNext} 
+        <NavButton
+          onClick={handleNext}
           aria-label="Suivant"
           $active={direction === 1}
         >

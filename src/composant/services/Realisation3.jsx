@@ -77,14 +77,14 @@ const Subtitle = styled(motion.p).attrs(() => ({
   margin: 0 auto;
   font-weight: 500;
 
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
     font-size: 1.1rem;
   }
 
   @media (max-width: 480px) {
     font-size: 1rem;
     padding: 0rem 2rem;
-     text-align: left;
+    text-align: left;
   }
 `;
 
@@ -125,7 +125,8 @@ const ProjectCard = styled(motion.div).attrs(() => ({
 
   &:hover::after {
     transform: scaleX(1);
-  `;
+  }
+`;
 
 const ProjectImage = styled(motion.img).attrs(() => ({
   whileHover: { scale: 1.05 },
@@ -136,6 +137,7 @@ const ProjectImage = styled(motion.img).attrs(() => ({
   object-fit: cover;
   border-bottom: 3px solid #a07753;
   cursor: pointer;
+  loading="lazy"; // Optimisation du chargement des images
 `;
 
 const ProjectContent = styled.div`
@@ -330,19 +332,19 @@ const Realisation3 = () => {
       id: 1,
       title: "Cabinet AOD avocats",
       image: "/img/accueilaodavocat.avif",
-      description: "Portail dédié à la communauté  pour la navigation ",
-      technologies: ["React", "Node.js", "MongoDB", "Socket.io", " ..."],
+      description: "Portail dédié à la communauté pour la navigation",
+      technologies: ["React", "Node.js", "MongoDB", "Socket.io", "..."],
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
       fullDescription:
-        "Une plateforme complète avec annuaire,  système de chat en temps réel , prise d'information , gestion des données et ...",
+        "Une plateforme complète avec annuaire, système de chat en temps réel, prise d'information, gestion des données et ...",
     },
     {
       id: 2,
       title: "Casier judiciaire",
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes de casier judiciaire ",
+      description: "Solution de gestion des demandes de casier judiciaire",
       technologies: [
         "Reactjs",
         "React native",
@@ -361,13 +363,13 @@ const Realisation3 = () => {
       title: "Base de données DIKOB",
       image: "/img/tiptamcode.avif",
       description:
-        "Suivi des personnalisé des differentes activités entrées/sorties des de l'entreprise en locale",
-      technologies: ["React ", "Mysql", "Node.js", "Express", "AI"],
+        "Suivi des personnalisé des différentes activités entrées/sorties des de l'entreprise en locale",
+      technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
       duration: "4 mois",
-      role: "Développement Full-Stack ",
+      role: "Développement Full-Stack",
       status: "Terminer",
       fullDescription:
-        "Application web avec alertes intelligentes et suivi en temps réel des differentes activités de l'entreprise...",
+        "Application web avec alertes intelligentes et suivi en temps réel des différentes activités de l'entreprise...",
     },
   ];
 
@@ -386,7 +388,7 @@ const Realisation3 = () => {
       <Title>Nos Projets Innovants</Title>
       <Subtitle>
         Découvrez nos solutions technologiques sur mesure, alliant innovation et
-        performance pour répondre aux défis numériques d'aujourd'hui.{" "}
+        performance pour répondre aux défis numériques d'aujourd'hui.
       </Subtitle>
 
       <ProjectsGrid>
@@ -396,6 +398,7 @@ const Realisation3 = () => {
               src={project.image}
               alt={project.title}
               onClick={() => handleOpenModal(project)}
+              loading="lazy" // Optimisation du chargement des images
             />
             <ProjectContent>
               <ProjectTitle>{project.title}</ProjectTitle>

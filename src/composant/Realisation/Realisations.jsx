@@ -1,10 +1,12 @@
-import { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "react-modal";
-import Acueilpourlesautres from "../Acueilpourlesautres";
 import Seo from "../Seo"; // Ajout du composant SEO
 import { Helmet } from "react-helmet"; // Pour le schema JSON-LD
+
+// Chargement différé des composants enfants
+const Acueilpourlesautres = lazy(() => import("../Acueilpourlesautres"));
 
 // Configuration de base pour React Modal
 Modal.setAppElement("#root");
@@ -133,7 +135,8 @@ const ProjectCard = styled(motion.div).attrs(() => ({
 
   &:hover::after {
     transform: scaleX(1);
-  `;
+  }
+`;
 
 const ProjectImage = styled(motion.img).attrs(() => ({
   whileHover: { scale: 1.05 },
@@ -144,8 +147,9 @@ const ProjectImage = styled(motion.img).attrs(() => ({
   object-fit: cover;
   border-bottom: 3px solid #a07753;
   cursor: pointer;
+  loading="lazy"; // Optimisation du chargement des images
 `;
-//rest
+
 const ProjectContent = styled.div`
   padding: 1.5rem;
 `;
@@ -349,6 +353,7 @@ const Realisations = () => {
       },
     })),
   });
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -357,19 +362,19 @@ const Realisations = () => {
       id: 1,
       title: "Cabinet AOD avocats",
       image: "/img/accueilaodavocat.avif",
-      description: "Portail dédié à la communauté  pour la navigation ",
-      technologies: ["React", "Node.js", "MongoDB", "Socket.io", " ..."],
+      description: "Portail dédié à la communauté pour la navigation",
+      technologies: ["React", "Node.js", "MongoDB", "Socket.io", "..."],
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
       fullDescription:
-        "Une plateforme complète avec annuaire,  système de chat en temps réel , prise d'information , gestion des données et ...",
+        "Une plateforme complète avec annuaire, système de chat en temps réel, prise d'information, gestion des données et ...",
     },
     {
       id: 2,
       title: "Casier judiciaire",
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes de casier judiciaire ",
+      description: "Solution de gestion des demandes de casier judiciaire",
       technologies: [
         "Reactjs",
         "React native",
@@ -388,38 +393,38 @@ const Realisations = () => {
       title: "Base de données DIKOB",
       image: "/img/tiptamcode.avif",
       description:
-        "Suivi des personnalisé des differentes activités entrées/sorties des de l'entreprise en locale",
-      technologies: ["React ", "Mysql", "Node.js", "Express", "AI"],
+        "Suivi des personnalisé des différentes activités entrées/sorties des de l'entreprise en locale",
+      technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
       duration: "3 mois",
-      role: "Développement Full-Stack ",
+      role: "Développement Full-Stack",
       status: "Terminer",
       fullDescription:
-        "Application web avec alertes intelligentes et suivi en temps réel des differentes activités de l'entreprise...",
+        "Application web avec alertes intelligentes et suivi en temps réel des différentes activités de l'entreprise...",
     },
     {
       id: 4,
       title: "Le transport",
       image: "/img/sttis.webp",
       description:
-        "Suivi des personnalisé des differentes activités entrées/sorties sur les longues voyages",
-      technologies: ["React ", "Mysql", "Node.js", "Express", "AI"],
+        "Suivi des personnalisé des différentes activités entrées/sorties sur les longues voyages",
+      technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
       duration: "4 mois",
-      role: "Développement Full-Stack ",
+      role: "Développement Full-Stack",
       status: "En maintenance",
       fullDescription:
-        "Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des differentes activités de ...",
+        "Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de ...",
     },
     {
       id: 5,
       title: "Le projet TIPTAMCode",
       image: "/img/TIPTAM-Code.avif",
       description: "Site vitrine pour l'entreprise Technique info pour tous AM",
-      technologies: ["React ", "Mongodb", "Node.js", "Express", "AI"],
+      technologies: ["React", "Mongodb", "Node.js", "Express", "AI"],
       duration: "2 mois",
-      role: "Développement Full-Stack ",
+      role: "Développement Full-Stack",
       status: "Terminer",
       fullDescription:
-        "Application web de gestion qui affiche l'image de l'entreprise sur sur le web  et suivi en temps réel des differentes activités de l'activité et utres ...",
+        "Application web de gestion qui affiche l'image de l'entreprise sur sur le web et suivi en temps réel des différentes activités de l'activité et autres ...",
     },
   ];
 
@@ -446,12 +451,14 @@ const Realisations = () => {
         </script>
         <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
       </Helmet>
-      <Acueilpourlesautres />
+      <Suspense fallback={<div>Chargement...</div>}>
+        <Acueilpourlesautres />
+      </Suspense>
       <ProjectsContainer>
         <Title>Nos Projets Innovants</Title>
         <Subtitle>
           Découvrez nos solutions technologiques sur mesure, alliant innovation
-          et performance pour répondre aux défis numériques d'aujourd'hui.{" "}
+          et performance pour répondre aux défis numériques d'aujourd'hui.
         </Subtitle>
 
         <ProjectsGrid>
@@ -503,7 +510,6 @@ const Realisations = () => {
                   alt={`Détails du projet ${selectedProject.title}`}
                   loading="lazy"
                 />
-               
 
                 <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
 
@@ -558,4 +564,4 @@ const Realisations = () => {
   );
 };
 
-export default Realisations;
+export default React.memo(Realisations);
