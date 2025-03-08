@@ -141,6 +141,8 @@ export default function Erreurr() {
 
   return (
     <Container>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
       <Content>
         <ErrorCode data-aos="zoom-in">404</ErrorCode>
         

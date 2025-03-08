@@ -440,6 +440,8 @@ const Realisations = () => {
 
   return (
     <>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
       <Seo
         title="Nos Réalisations - Projets de Développement Web par TIPTAMCode"
         description="Découvrez nos projets clés en développement web et mobile. Solutions sur mesure avec React, Node.js et technologies modernes."

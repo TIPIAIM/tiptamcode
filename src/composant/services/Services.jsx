@@ -239,7 +239,7 @@ const Services = () => {
       icon: <FileText color="#b96f33" aria-hidden="true" />,
       color: "hsl(195, 42.90%, 94.50%, 0.2)",
     },
-    
+
     {
       title: "Marketing Digital",
       subtitle: "Stratégie de contenu",
@@ -288,6 +288,8 @@ const Services = () => {
 
   return (
     <div itemScope itemType="https://schema.org/Service">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
       <ServicesContainer>
         <Seo {...seoProps} />
         <Suspense fallback={<div>Chargement...</div>}>

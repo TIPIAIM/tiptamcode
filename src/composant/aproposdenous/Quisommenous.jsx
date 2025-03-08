@@ -291,6 +291,8 @@ const APropos = () => {
         description="Découvrez l'équipe TIPTAMCode, spécialiste en création de sites web et applications sur mesure depuis 2021. Philosophie client-centrée et résultats concrets."
         keywords="développement web, équipe technique, création de sites, applications web, satisfaction client, TIPTAMCode"
       />
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
 
       <Helmet>
         <script type="application/ld+json">
