@@ -152,7 +152,17 @@ const MovingStars = () => {
     }
   });
 
-  return <Stars ref={starsRef} radius={100} depth={50} count={5000} factor={4} saturation={0} fade />;
+  return (
+    <Stars
+      ref={starsRef}
+      radius={100}
+      depth={50}
+      count={5000}
+      factor={4}
+      saturation={0}
+      fade
+    />
+  );
 };
 
 const WindParticles = () => {

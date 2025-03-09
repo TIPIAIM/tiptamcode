@@ -5,9 +5,9 @@ import "aos/dist/aos.css";
 import { Helmet } from "react-helmet";
 import photoaccueil from "../../assets/abdoulayeavoc.avif";
 import Seo from "../Seo";
-import Acueilpourlesautres from "../Acueilpourlesautres";
 import FAQ from "../question/Questions";
 import Footer from "../Footerrr";
+import Accueil from "../Acueil/Acueil";
 // Palette de couleurs
 const colors = {
   primaryDark: "#011d23",
@@ -273,7 +273,7 @@ export default function Contact() {
         ></meta>
       </Helmet>
 
-      <Acueilpourlesautres />
+      <Accueil/>
       <ContactContainer>
         <ImageSection data-aos="fade-right">
           <ResponsiveImage
@@ -286,6 +286,7 @@ export default function Contact() {
 
         <FormSection data-aos="fade-down">
           <Title>Contactez-nous</Title>
+
           <Description>
             Notre équipe de développeurs web est à votre disposition pour
             concrétiser vos projets numériques. Remplissez le formulaire

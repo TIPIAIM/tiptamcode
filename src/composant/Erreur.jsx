@@ -22,7 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 90vh;
   background: linear-gradient(rgba(1, 29, 35, 0.9), rgba(1, 29, 35, 0.9)),
     url(${logoAODnoir}) center/cover fixed;
   padding: 2rem;
@@ -42,7 +42,7 @@ const ErrorCode = styled.h1`
   font-weight: 700;
   color: ${colors.accent};
   text-shadow: 0 4px 20px rgba(185, 111, 51, 0.3);
-  margin-bottom: 1rem;
+
   line-height: 1;
 
   @media (max-width: 768px) {
@@ -141,13 +141,16 @@ export default function Erreurr() {
 
   return (
     <Container>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-     crossorigin="anonymous"></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
       <Content>
         <ErrorCode data-aos="zoom-in">404</ErrorCode>
-        
+
         <ErrorMessage data-aos="fade-up" data-aos-delay="200">
-          Oups ! La page que vous cherchez semble introuvable.
+          Oups ! La page que vous cherchez semble introuvable ou en maintenance.
         </ErrorMessage>
 
         <AnimatedText data-aos="fade-up" data-aos-delay="300">
@@ -155,25 +158,16 @@ export default function Erreurr() {
         </AnimatedText>
 
         <ActionContainer>
-          <ActionButton
-            to="/"
-            data-aos="fade-right"
-            data-aos-delay="400"
-          >
+          <ActionButton to="/" data-aos="fade-right" data-aos-delay="400">
             <FaArrowLeft />
             Retour à l'accueil
           </ActionButton>
 
-          <ActionButton
-            to="/contact"
-            data-aos="fade-left"
-            data-aos-delay="400"
-          >
+          <ActionButton to="/contact" data-aos="fade-left" data-aos-delay="400">
             <FaEnvelope />
             Nous contacter
           </ActionButton>
         </ActionContainer>
-
       </Content>
     </Container>
   );

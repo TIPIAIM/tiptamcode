@@ -243,7 +243,7 @@ const Footer = () => {
             <ContactItem as={motion.div} whileHover={{ x: 5 }}>
               <FaPhone />
               <a href="tel:+624138395" itemProp="telephone">
-                +624 138 395
+                +624 138 395 /+224 629 066 988
               </a>
             </ContactItem>
 

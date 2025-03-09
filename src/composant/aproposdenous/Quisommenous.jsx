@@ -5,6 +5,7 @@ import { Rocket, Code } from "lucide-react";
 import { Helmet } from "react-helmet";
 import Seo from "../Seo";
 import Footer from "../Footerrr";
+import Accueil from "../Acueil/Acueil";
 
 // Styles des composants
 const AboutContainer = styled.section`
@@ -313,7 +314,7 @@ const APropos = () => {
           content="https://www.tiptamcode.com/img/tiptamcode.avif"
         />
       </Helmet>
-
+      <Accueil />
       <AboutContainer>
         <ContentGrid>
           <VisualSection

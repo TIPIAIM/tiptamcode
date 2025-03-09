@@ -101,31 +101,28 @@ const PageButton = styled.button`
 const faqData = [
   {
     question: "Quels services propose TIPTAMCode ?",
-    answer: "Nous offrons des formations en développement web, création de sites internet sur mesure, développement d'applications web, et conseils en stratégie digitale."
+    answer: "Nous offrons des formations en informatiques, création de sites internet sur mesure, développement d'applications web, et conseils en stratégie digitale, ..."
   },
   {
     question: "Quelles technologies utilisez-vous ?",
-    answer: "Nous travaillons avec les dernières technologies : React, Node.js, JavaScript, Python, ainsi que des CMS modernes comme WordPress et Strapi."
+    answer: "Nous travaillons avec les dernières technologies : React, Node.js, JavaScript, Python,spring boot,  ainsi que des CMS modernes comme WordPress et Strapi."
   },
   {
     question: "Proposez-vous des formations en ligne ?",
-    answer: "Oui, nous proposons des formations en ligne et en présentiel, adaptées à tous les niveaux, du débutant au développeur confirmé."
+    answer: "Oui, nous proposons des formations en ligne et en présentiel, adaptées à tous les débutant ."
   },
   {
     question: "Combien de temps prend la création d'un site web ?",
     answer: "Le délai varie selon la complexité du projet. En moyenne, un site vitrine prend 2 à 4 semaines, tandis qu'une application web peut nécessiter 2 à 6 mois."
   },
-  {
-    question: "Pouvez-vous optimiser mon site existant ?",
-    answer: "Absolument ! Nous proposons des services d'optimisation SEO, amélioration des performances, et refonte de sites existants."
-  },
+
   {
     question: "Quels sont vos tarifs ?",
     answer: "Nos tarifs sont adaptés à chaque projet. Contactez-nous pour un devis personnalisé en fonction de vos besoins."
   },
   {
     question: "Proposez-vous des formations certifiantes ?",
-    answer: "Oui, toutes nos formations délivrent une certification reconnue dans le secteur du développement web."
+    answer: "Oui , toutes nos formations délivrent une certification reconnue dans le secteur du développement web."
   },
   {
     question: "Quels sont les prérequis pour vos formations ?",
@@ -133,7 +130,7 @@ const faqData = [
   },
   {
     question: "Pouvez-vous créer un site e-commerce ?",
-    answer: "Oui, nous développons des sites e-commerce performants avec des solutions comme Shopify, WooCommerce ou des plateformes sur mesure."
+    answer: "Oui, nous développons des sites e-commerce performants avec des solutions comme innovantes,  plateformes sur mesure."
   },
   {
     question: "Proposez-vous un support après la livraison ?",
