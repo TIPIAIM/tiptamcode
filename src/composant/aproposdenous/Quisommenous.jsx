@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Rocket, Code } from "lucide-react";
 import { Helmet } from "react-helmet";
 import Seo from "../Seo";
+import Footer from "../Footerrr";
 
 // Styles des composants
 const AboutContainer = styled.section`
@@ -291,8 +292,11 @@ const APropos = () => {
         description="Découvrez l'équipe TIPTAMCode, spécialiste en création de sites web et applications sur mesure depuis 2021. Philosophie client-centrée et résultats concrets."
         keywords="développement web, équipe technique, création de sites, applications web, satisfaction client, TIPTAMCode"
       />
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-     crossorigin="anonymous"></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
 
       <Helmet>
         <script type="application/ld+json">
@@ -383,7 +387,7 @@ const APropos = () => {
 
           <TeamGrid>
             {[
-               {
+              {
                 name: "Mamadou Marietou",
                 role: " Co-Fondateur : Assure les formations, la maintenance et autres ",
                 photo: "/img/mariatou1.avif",
@@ -421,6 +425,7 @@ const APropos = () => {
           </TeamGrid>
         </TeamSection>
       </AboutContainer>
+      <Footer />
     </>
   );
 };

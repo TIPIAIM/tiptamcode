@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Seo from "../Seo";
+import Footer from "../Footerrr";
 
 // Chargement différé des composants enfants
 const Mission = lazy(() => import("./Mission"));
@@ -369,6 +370,7 @@ const Services = () => {
         <Mission />
         <Realisation3 />
       </Suspense>
+      <Footer />
     </div>
   );
 };

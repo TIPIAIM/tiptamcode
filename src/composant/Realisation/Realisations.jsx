@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Modal from "react-modal";
 import Seo from "../Seo"; // Ajout du composant SEO
 import { Helmet } from "react-helmet"; // Pour le schema JSON-LD
+import Footer from "../Footerrr";
 
 // Chargement différé des composants enfants
 const Acueilpourlesautres = lazy(() => import("../Acueilpourlesautres"));
@@ -562,6 +563,7 @@ const Realisations = () => {
           </AnimatePresence>
         </Modal>
       </ProjectsContainer>
+      <Footer />
     </>
   );
 };

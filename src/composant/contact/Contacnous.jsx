@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet";
 import photoaccueil from "../../assets/abdoulayeavoc.avif";
 import Seo from "../Seo";
 import Acueilpourlesautres from "../Acueilpourlesautres";
+import FAQ from "../question/Questions";
+import Footer from "../Footerrr";
 // Palette de couleurs
 const colors = {
   primaryDark: "#011d23",
@@ -22,7 +24,7 @@ const ContactContainer = styled.div`
   min-height: 100vh;
   padding: 2m 1rem;
   margin-bottom: 9rem;
-   margin-top : 8rem;
+  margin-top: 8rem;
   background: ${colors.lightCream};
 
   @media (min-width: 768px) {
@@ -32,7 +34,6 @@ const ContactContainer = styled.div`
 
   @media (min-width: 1024px) {
     padding: 4rem 6rem;
-
   }
 `;
 
@@ -183,7 +184,7 @@ export default function Contact() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      once:true,
+      once: true,
       disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     });
   }, []);
@@ -257,15 +258,19 @@ export default function Contact() {
         description="Contactez le Technique info . Formulaire de contact sécurisé et réponse rapide garantie.  "
         keywords="projets développement web, applications React, solutions digitales, études de cas techniques"
       />
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-     crossorigin="anonymous"></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
       <Helmet>
-       
-      
         <script type="application/ld+json">
           {JSON.stringify(createSchemaMarkup())}
         </script>
-        <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-8656657415098715"
+        ></meta>
       </Helmet>
 
       <Acueilpourlesautres />
@@ -332,7 +337,9 @@ export default function Contact() {
         </FormSection>
       </ContactContainer>
 
-      <div className="mt-12"></div>
+     
+      <FAQ />
+      <Footer />
     </div>
   );
 }

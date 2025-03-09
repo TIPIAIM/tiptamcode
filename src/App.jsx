@@ -33,7 +33,7 @@ export default function App() {
           <Route path="/apropos" element={<Quisommenous />} />
           <Route path="/realisation" element={<Realisations />} />
         </Routes>
-        <Footerrr />{" "}
+      
       </BrowserRouter>
     </div>
   );
