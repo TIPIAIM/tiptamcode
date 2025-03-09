@@ -152,16 +152,39 @@ const MovingStars = () => {
     }
   });
 
+  return <Stars ref={starsRef} radius={100} depth={50} count={5000} factor={4} saturation={0} fade />;
+};
+
+const WindParticles = () => {
+  const meshRef = useRef();
+  const [positions] = useState(() => {
+    const positions = [];
+    for (let i = 0; i < 1000; i++) {
+      positions.push((Math.random() - 0.5) * 20);
+      positions.push((Math.random() - 0.5) * 20);
+      positions.push((Math.random() - 0.5) * 20);
+    }
+    return new Float32Array(positions);
+  });
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.002;
+    }
+  });
+
   return (
-    <Stars
-      ref={starsRef}
-      radius={100}
-      depth={50}
-      count={5000}
-      factor={4}
-      saturation={0}
-      fade
-    />
+    <points ref={meshRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attachObject={["attributes", "position"]}
+          array={positions}
+          count={positions.length / 3}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial color="#00ff00" size={0.1} />
+    </points>
   );
 };
 
@@ -218,6 +241,7 @@ const Accueil = () => {
         <Canvas>
           <MovingStars />
           <Particles mousePosition={mousePosition} />
+          <WindParticles />
         </Canvas>
       </CanvasWrapper>
 
@@ -245,7 +269,7 @@ const Accueil = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
       >
-        Utilisez la souris ou touchez l'écran pour interagir avec l'animation 3D
+        Toujours dans le temps
       </Instructions>
     </HeroSection>
   );
