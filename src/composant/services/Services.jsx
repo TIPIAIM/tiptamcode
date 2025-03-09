@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { useEffect, lazy, Suspense,useMemo } from "react";
 import styled from "styled-components";
 import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
@@ -213,7 +213,7 @@ const BackContentItem = styled.li`
 `;
 
 const Services = () => {
-  const services = [
+  const services = useMemo(() => [
     {
       title: "Création De Sites Web Professionnels",
       subtitle: "Solutions digitales performantes",
@@ -240,7 +240,6 @@ const Services = () => {
       icon: <FileText color="#b96f33" aria-hidden="true" />,
       color: "hsl(195, 42.90%, 94.50%, 0.2)",
     },
-
     {
       title: "Marketing Digital",
       subtitle: "Stratégie de contenu",
@@ -267,7 +266,7 @@ const Services = () => {
       icon: <TrendingUp color="#b96f33" aria-hidden="true" />,
       color: "hsl(195, 42.90%, 94.50%, 0.2)",
     },
-  ];
+  ], [])
 
   const seoProps = {
     title: "Services de Développement Web | TIPTAMCode Agence Professionnelle de dev web",
