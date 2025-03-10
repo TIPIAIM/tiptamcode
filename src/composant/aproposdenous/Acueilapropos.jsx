@@ -278,7 +278,7 @@ const Acueilapropos = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
       >
-        Rencontrez l'Équipe
+        Rencontrez notre équipe
       </Instructions>
     </HeroSection>
   );
