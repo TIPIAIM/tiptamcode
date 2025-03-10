@@ -4,11 +4,10 @@ import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Seo from "../Seo";
 import Footer from "../Footerrr";
-import Accueilpourservice from "./Accueilpourservice";
 
 // Chargement différé des composants enfants
 const Mission = lazy(() => import("./Mission"));
-const Accueilpourlesautres = lazy(() => import("../Acueilpourlesautres"));
+const Accueilpourservice = lazy(() => import("./Accueilpourservice"));
 const Temoignage = lazy(() => import("./Temoignge"));
 const Realisation3 = lazy(() => import("./Realisation3"));
 

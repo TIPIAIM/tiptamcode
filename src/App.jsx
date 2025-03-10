@@ -24,7 +24,6 @@ export default function App() {
       <BrowserRouter>
         {" "}
         <Navbarrr />
-        
         <StructuredData />
         <Routes>
           <Route index element={<Hero />} />
