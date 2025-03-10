@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import SEO from "../Seo.jsx";
-
-// Styles responsives avec styled-components
+import PropTypes from "prop-types"; // Import PropTypes
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
+// Styled Components
 const HeroSection = styled.section`
   min-height: 100vh;
   display: flex;
@@ -131,15 +130,22 @@ const Particles = ({ mousePosition }) => {
     <points ref={meshRef}>
       <bufferGeometry>
         <bufferAttribute
-          attachObject={["attributes", "position"]}
-          array={positions}
-          count={positions.length / 3}
-          itemSize={3}
+          attach="attributes-position" // Correction ici
+          array={positions} // Tableau de positions
+          count={positions.length / 3} // Nombre de sommets
+          itemSize={3} // Taille de chaque sommet (x, y, z)
         />
       </bufferGeometry>
-      <pointsMaterial color="#b96f33" size={0.05} />
+      <pointsMaterial color="rgba(1, 29, 35, 0.46)" size={0.04} />
     </points>
   );
+};
+
+Particles.propTypes = {
+  mousePosition: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 const MovingStars = () => {
@@ -160,6 +166,7 @@ const MovingStars = () => {
       factor={4}
       saturation={0}
       fade
+      color="white"
     />
   );
 };
@@ -186,21 +193,20 @@ const WindParticles = () => {
     <points ref={meshRef}>
       <bufferGeometry>
         <bufferAttribute
-          attachObject={["attributes", "position"]}
-          array={positions}
-          count={positions.length / 3}
-          itemSize={3}
+          attach="attributes-position" // Correction ici
+          array={positions} // Tableau de positions
+          count={positions.length / 3} // Nombre de sommets
+          itemSize={3} // Taille de chaque sommet (x, y, z)
         />
       </bufferGeometry>
-      <pointsMaterial color="#00ff00" size={0.1} />
+      <pointsMaterial color="rgba(185, 111, 51, 0.7)" size={0.1} />
     </points>
   );
 };
-
 const Accueil = () => {
   const messages = [
     "Des solutions sur mesure pour booster votre présence en ligne",
-    "Une expertise en React, Node.js, express, mongodb et bien plus encore",
+    "Une expertise en React, Node.js et bien plus encore",
     "Transformez vos idées en réalité digitale avec nous",
     "Sites web performants et adaptés à vos besoins",
     "Optimisation SEO et accompagnement personnalisé",
@@ -241,11 +247,6 @@ const Accueil = () => {
 
   return (
     <HeroSection onMouseMove={handleMouseMove} onTouchMove={handleTouchMove}>
-      <SEO
-        title="TIPTAMCode - Dév & Formation Tech - Solutions Digitales"
-        description="TIPTAMCode propose des services de développement web sur mesure, des formations en informatique et des solutions digitales adaptées à vos besoins. Création de sites web, applications et conseils en IT."
-        keywords="Développement web, Création site internet, Formation informatique , Solutions digitales, Développement web Conakry, Hébergement web, Deployement des solutions, Référencement SEO, Conseil en informatique, Site web responsive, Programmation web, Formation React, Formation JavaScript, CMS personnalisé, Site e-commerce"
-      />
       <CanvasWrapper>
         <Canvas>
           <MovingStars />
@@ -260,7 +261,7 @@ const Accueil = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Votre Partenaire en <GradientText>Développement Web</GradientText>
+             Votre Partenaire en <GradientText>Développement Web </GradientText>
         </MainHeading>
 
         <MessageText

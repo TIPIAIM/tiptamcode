@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import SEO from "../Seo.jsx";
-import * as THREE from "three";
 
 // Styles responsives avec styled-components
 const HeroSection = styled.section`
@@ -50,7 +50,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const MainHeading = styled.h1`
+const MainHeading = styled(motion.h1)`
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
@@ -73,7 +73,7 @@ const GradientText = styled.span`
   background-image: linear-gradient(to right, #b96f33, #a07753);
 `;
 
-const MessageText = styled.p`
+const MessageText = styled(motion.p)`
   font-size: 1.125rem;
   color: #f4f5f1;
   max-width: 42rem;
@@ -91,7 +91,24 @@ const MessageText = styled.p`
   }
 `;
 
-const Particles = () => {
+const Instructions = styled(motion.div)`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f4f5f1;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 0.875rem;
+  }
+`;
+
+const Particles = ({ mousePosition }) => {
   const meshRef = useRef();
   const [positions] = useState(() => {
     const positions = [];
@@ -103,10 +120,10 @@ const Particles = () => {
     return new Float32Array(positions);
   });
 
-  useFrame(({ mouse }) => {
+  useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = mouse.y * 0.5;
-      meshRef.current.rotation.y = mouse.x * 0.5;
+      meshRef.current.rotation.x = mousePosition.y * 0.5;
+      meshRef.current.rotation.y = mousePosition.x * 0.5;
     }
   });
 
@@ -121,6 +138,61 @@ const Particles = () => {
         />
       </bufferGeometry>
       <pointsMaterial color="#b96f33" size={0.05} />
+    </points>
+  );
+};
+
+const MovingStars = () => {
+  const starsRef = useRef();
+
+  useFrame(() => {
+    if (starsRef.current) {
+      starsRef.current.rotation.y += 0.001;
+    }
+  });
+
+  return (
+    <Stars
+      ref={starsRef}
+      radius={100}
+      depth={50}
+      count={5000}
+      factor={4}
+      saturation={0}
+      fade
+    />
+  );
+};
+
+const WindParticles = () => {
+  const meshRef = useRef();
+  const [positions] = useState(() => {
+    const positions = [];
+    for (let i = 0; i < 1000; i++) {
+      positions.push((Math.random() - 0.5) * 20);
+      positions.push((Math.random() - 0.5) * 20);
+      positions.push((Math.random() - 0.5) * 20);
+    }
+    return new Float32Array(positions);
+  });
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.002;
+    }
+  });
+
+  return (
+    <points ref={meshRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attachObject={["attributes", "position"]}
+          array={positions}
+          count={positions.length / 3}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial color="#00ff00" size={0.1} />
     </points>
   );
 };
@@ -140,6 +212,7 @@ const Accueil = () => {
   ];
 
   const [currentMessage, setCurrentMessage] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -149,8 +222,25 @@ const Accueil = () => {
     return () => clearInterval(interval);
   }, [messages.length]);
 
+  const handleMouseMove = (event) => {
+    setMousePosition({
+      x: (event.clientX / window.innerWidth) * 2 - 1,
+      y: -(event.clientY / window.innerHeight) * 2 + 1,
+    });
+  };
+
+  const handleTouchMove = (event) => {
+    if (event.touches.length > 0) {
+      const touch = event.touches[0];
+      setMousePosition({
+        x: (touch.clientX / window.innerWidth) * 2 - 1,
+        y: -(touch.clientY / window.innerHeight) * 2 + 1,
+      });
+    }
+  };
+
   return (
-    <HeroSection>
+    <HeroSection onMouseMove={handleMouseMove} onTouchMove={handleTouchMove}>
       <SEO
         title="TIPTAMCode - Dév & Formation Tech - Solutions Digitales"
         description="TIPTAMCode propose des services de développement web sur mesure, des formations en informatique et des solutions digitales adaptées à vos besoins. Création de sites web, applications et conseils en IT."
@@ -158,21 +248,38 @@ const Accueil = () => {
       />
       <CanvasWrapper>
         <Canvas>
-          <OrbitControls enableZoom={false} />
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
-          <Particles />
+          <MovingStars />
+          <Particles mousePosition={mousePosition} />
+          <WindParticles />
         </Canvas>
       </CanvasWrapper>
 
       <ContentWrapper>
-        <MainHeading>
+        <MainHeading
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           Votre Partenaire en <GradientText>Développement Web</GradientText>
         </MainHeading>
 
-        <MessageText>
+        <MessageText
+          key={currentMessage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           {messages[currentMessage]}
         </MessageText>
       </ContentWrapper>
+
+      <Instructions
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        Toujours dans le temps
+      </Instructions>
     </HeroSection>
   );
 };

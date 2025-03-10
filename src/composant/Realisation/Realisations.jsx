@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet"; // Pour le schema JSON-LD
 import Footer from "../Footerrr";
 
 // Chargement différé des composants enfants
-const Acueilpourlesautres = lazy(() => import("../Acueilpourlesautres"));
+const Acueilpourlesautres = lazy(() => import("./Acueilrealisation"));
 
 // Configuration de base pour React Modal
 Modal.setAppElement("#root");
@@ -94,7 +94,7 @@ const Subtitle = styled(motion.p).attrs(() => ({
 
   @media (max-width: 480px) {
     font-size: 1rem;
-    padding: 0rem 2rem;
+    padding: 2rem 2rem;
     text-align: left;
   }
 `;
@@ -458,7 +458,6 @@ const Realisations = () => {
         <Acueilpourlesautres />
       </Suspense>
       <ProjectsContainer>
-        <Title>Nos Projets Innovants</Title>
         <Subtitle>
           Découvrez nos solutions technologiques sur mesure, alliant innovation
           et performance pour répondre aux défis numériques d'aujourd'hui.

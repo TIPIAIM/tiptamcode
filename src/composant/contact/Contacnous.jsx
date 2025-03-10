@@ -7,7 +7,7 @@ import photoaccueil from "../../assets/abdoulayeavoc.avif";
 import Seo from "../Seo";
 import FAQ from "../question/Questions";
 import Footer from "../Footerrr";
-import Accueil from "../Acueil/Acueil";
+import Acueilrealisercontact from "./Acueilrealisercontact";
 // Palette de couleurs
 const colors = {
   primaryDark: "#011d23",
@@ -273,7 +273,7 @@ export default function Contact() {
         ></meta>
       </Helmet>
 
-      <Accueil/>
+      <Acueilrealisercontact/>
       <ContactContainer>
         <ImageSection data-aos="fade-right">
           <ResponsiveImage

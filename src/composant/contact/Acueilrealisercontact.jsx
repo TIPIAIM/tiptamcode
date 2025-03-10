@@ -6,7 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 // Styled Components
 const HeroSection = styled.section`
-  min-height: 100vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,22 +91,25 @@ const MessageText = styled(motion.p)`
 `;
 
 const Instructions = styled(motion.div)`
-  position: absolute;
-  bottom: 2rem;
+  position: sticky;
+  text-align: center;
+
   left: 50%;
+  bottom: 0%;
   transform: translateX(-50%);
   color: #f4f5f1;
   font-size: 1rem;
   background: rgba(0, 0, 0, 0.5);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  text-align: center;
 
   @media (max-width: 480px) {
-    font-size: 0.875rem;
+    font-size: 0.975rem;
+
+    left: 50%;
+    border-radius: 0.4rem;
   }
 `;
-
 const Particles = ({ mousePosition }) => {
   const meshRef = useRef();
   const [positions] = useState(() => {
@@ -203,18 +206,15 @@ const WindParticles = () => {
     </points>
   );
 };
-const Broullons = () => {
+const Acueilrealisercontact = () => {
   const messages = [
-    "Des solutions sur mesure pour booster votre présence en ligne",
-    "Une expertise en React, Node.js et bien plus encore",
-    "Transformez vos idées en réalité digitale avec nous",
-    "Sites web performants et adaptés à vos besoins",
-    "Optimisation SEO et accompagnement personnalisé",
-    "Applications web modernes et intuitives",
-    "Développement sur mesure pour entreprises et startups",
-    "Intégration des dernières technologies web",
-    "Sécurité et performances au cœur de nos réalisations",
-    "Formation et conseils pour réussir votre projet digital",
+    "Transformez vos défis en opportunités de croissance",
+    "-Notre équipe de développeurs web",
+    "-concrétiser vos projets numériques",
+    "- Remplissez le formulaire",
+    "- Besoins en développement",
+    "- Besoins en formation",
+    "...",
   ];
 
   const [currentMessage, setCurrentMessage] = useState(0);
@@ -261,7 +261,8 @@ const Broullons = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-             Votre Partenaire en <GradientText>Développement Web </GradientText>
+          Contactez
+          <GradientText> -nous</GradientText>
         </MainHeading>
 
         <MessageText
@@ -279,10 +280,10 @@ const Broullons = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
       >
-        Toujours dans le temps
+        
       </Instructions>
     </HeroSection>
   );
 };
 
-export default Broullons;
+export default Acueilrealisercontact;

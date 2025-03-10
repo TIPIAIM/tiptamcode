@@ -178,7 +178,7 @@ export default function BardeNavigationpublic() {
 
         </Menu>
       </Nav>
-      <main className=" bg-[#011d23] " style={{ paddingTop: "90px" }}></main>
+      <main className=" bg-[#011d23] " style={{ paddingTop: "80px" }}></main>
     </>
   );
 }

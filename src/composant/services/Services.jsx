@@ -1,9 +1,10 @@
-import React, { useEffect, lazy, Suspense,useMemo } from "react";
+import React, { useEffect, lazy, Suspense, useMemo } from "react";
 import styled from "styled-components";
 import { Globe, FileText, PenTool, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Seo from "../Seo";
 import Footer from "../Footerrr";
+import Accueilpourservice from "./Accueilpourservice";
 
 // Chargement différé des composants enfants
 const Mission = lazy(() => import("./Mission"));
@@ -39,7 +40,8 @@ const generateServiceSchema = (services) => ({
     "@type": "Service",
     name: "Création De Sites Web Professionnels",
     description: "Développement sur mesure avec React, Angular et autres",
-    serviceOutput: "Site vitrine, Application web, E-commerce, Optimisation SEO,...",
+    serviceOutput:
+      "Site vitrine, Application web, E-commerce, Optimisation SEO,...",
     serviceUrl: "/services",
     areaServed: ["Gunée", "France", "Belgique", "Luxembourg"],
   },
@@ -51,39 +53,6 @@ const ServicesContainer = styled.section`
   background: #011d23;
   max-width: 1400px;
   margin: 0 auto;
-`;
-
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 4rem;
-`;
-
-const Title = styled(motion.h1)`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #a07753;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 0px rgba(169, 111, 51, 0.2);
-
-  @media (min-width: 768px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 480px) {
-    padding: 0rem 2rem;
-  }
-`;
-
-const Subtitle = styled(motion.p)`
-  font-size: 1.5rem;
-  color: #f4f5f1;
-  max-width: 800px;
-  margin: 0 auto;
-  font-weight: 500;
-  @media (max-width: 480px) {
-    font-size: 1rem;
-    padding: 0rem 2rem;
-    text-align: center;
-  }
 `;
 
 const ServicesGrid = styled.div`
@@ -213,65 +182,72 @@ const BackContentItem = styled.li`
 `;
 
 const Services = () => {
-  const services = useMemo(() => [
-    {
-      title: "Création De Sites Web Professionnels",
-      subtitle: "Solutions digitales performantes",
-      description: "Développement sur mesure avec technologies modernes (React, Next.js, Node.js)",
-      backContent: [
-        "Site vitrine responsive",
-        "Application web complexe",
-        "E-commerce sécurisé",
-        "Optimisation des performances",
-      ],
-      icon: <Globe color="#b96f33" aria-hidden="true" />,
-      color: "hsl(195, 42.90%, 94.50%, 0.2)",
-    },
-    {
-      title: "Rédaction Technique",
-      subtitle: "Cahier des charges",
-      description: "Cadrage précis de votre projet digital",
-      backContent: [
-        "Spécifications techniques",
-        "Arborescence détaillée",
-        "Planning réaliste",
-        "Budget maîtrisé",
-      ],
-      icon: <FileText color="#b96f33" aria-hidden="true" />,
-      color: "hsl(195, 42.90%, 94.50%, 0.2)",
-    },
-    {
-      title: "Marketing Digital",
-      subtitle: "Stratégie de contenu",
-      description: "Engagement et conversion maximale",
-      backContent: [
-        "Stratégie éditoriale",
-        "Rédaction SEO",
-        "Gestion réseaux sociaux",
-        "Analyse des résultats",
-      ],
-      icon: <PenTool color="#b96f33" aria-hidden="true" />,
-      color: "hsl(195, 42.90%, 94.50%, 0.2)",
-    },
-    {
-      title: "Optimisation SEO",
-      subtitle: "Référencement naturel",
-      description: "Dominez les résultats de recherche",
-      backContent: [
-        "Audit technique complet",
-        "Optimisation on-page",
-        "Stratégie de netlinking",
-        "Suivi analytics",
-      ],
-      icon: <TrendingUp color="#b96f33" aria-hidden="true" />,
-      color: "hsl(195, 42.90%, 94.50%, 0.2)",
-    },
-  ], [])
+  const services = useMemo(
+    () => [
+      {
+        title: "Création De Sites Web Professionnels",
+        subtitle: "Solutions digitales performantes",
+        description:
+          "Développement sur mesure avec technologies modernes (React, Next.js, Node.js)",
+        backContent: [
+          "Site vitrine responsive",
+          "Application web complexe",
+          "E-commerce sécurisé",
+          "Optimisation des performances",
+        ],
+        icon: <Globe color="#b96f33" aria-hidden="true" />,
+        color: "hsl(195, 42.90%, 94.50%, 0.2)",
+      },
+      {
+        title: "Rédaction Technique",
+        subtitle: "Cahier des charges",
+        description: "Cadrage précis de votre projet digital",
+        backContent: [
+          "Spécifications techniques",
+          "Arborescence détaillée",
+          "Planning réaliste",
+          "Budget maîtrisé",
+        ],
+        icon: <FileText color="#b96f33" aria-hidden="true" />,
+        color: "hsl(195, 42.90%, 94.50%, 0.2)",
+      },
+      {
+        title: "Marketing Digital",
+        subtitle: "Stratégie de contenu",
+        description: "Engagement et conversion maximale",
+        backContent: [
+          "Stratégie éditoriale",
+          "Rédaction SEO",
+          "Gestion réseaux sociaux",
+          "Analyse des résultats",
+        ],
+        icon: <PenTool color="#b96f33" aria-hidden="true" />,
+        color: "hsl(195, 42.90%, 94.50%, 0.2)",
+      },
+      {
+        title: "Optimisation SEO",
+        subtitle: "Référencement naturel",
+        description: "Dominez les résultats de recherche",
+        backContent: [
+          "Audit technique complet",
+          "Optimisation on-page",
+          "Stratégie de netlinking",
+          "Suivi analytics",
+        ],
+        icon: <TrendingUp color="#b96f33" aria-hidden="true" />,
+        color: "hsl(195, 42.90%, 94.50%, 0.2)",
+      },
+    ],
+    []
+  );
 
   const seoProps = {
-    title: "Services de Développement Web | TIPTAMCode Agence Professionnelle de dev web",
-    description: "Création de sites vitrines et applications web sur mesure avec stratégie SEO intégrée - Développement Front-end et Back-end - Formation React/Next.js",
-    keywords: "développement web et mobile , création site internet complexe , e-commerce, application web, référencement naturel, formation React et dev web, bonnes pratiques développement",
+    title:
+      "Services de Développement Web | TIPTAMCode Agence Professionnelle de dev web",
+    description:
+      "Création de sites vitrines et applications web sur mesure avec stratégie SEO intégrée - Développement Front-end et Back-end - Formation React/Next.js",
+    keywords:
+      "développement web et mobile , création site internet complexe , e-commerce, application web, référencement naturel, formation React et dev web, bonnes pratiques développement",
     schemaMarkup: generateServiceSchema(services),
   };
 
@@ -288,32 +264,16 @@ const Services = () => {
 
   return (
     <div itemScope itemType="https://schema.org/Service">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-     crossorigin="anonymous"></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
       <ServicesContainer>
         <Seo {...seoProps} />
         <Suspense fallback={<div>Chargement...</div>}>
-          <Accueilpourlesautres />
+          <Accueilpourservice />
         </Suspense>
-
-        <Header>
-          <Title
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            itemProp="name"
-          >
-            Solutions Digitales Innovantes
-          </Title>
-          <Subtitle
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }}
-            itemProp="description"
-          >
-            Transformez vos défis en opportunités de croissance
-          </Subtitle>
-        </Header>
 
         <ServicesGrid>
           {services.map((service, index) => (
