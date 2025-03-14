@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import aodblanc from "./../assets/tiptamcode.avif";
+import { Home, Briefcase, Info, Layers, Mail } from "lucide-react"; // Import des icônes
 
 // Conteneur principal de la navigation
 const Nav = styled.nav`
@@ -44,9 +45,6 @@ const Logo = styled.div`
     img {
       height: 70px;
     }
-  }
-
-
   }
 `;
 
@@ -107,9 +105,11 @@ const NavLink = styled.a`
   font-size: 1.1rem;
   white-space: nowrap;
   transition: all 0.8s ease;
+  display: flex;
+  align-items: center;
 
   &:hover {
-    background-color:rgba(160, 119, 83, 0.2);
+    background-color: rgba(160, 119, 83, 0.2);
     border-radius: 3px;
   }
 
@@ -135,6 +135,10 @@ const NavLink = styled.a`
     width: 100%;
     padding: 1rem;
   }
+
+  svg {
+    margin-right: 0.5rem;
+  }
 `;
 
 export default function BardeNavigationpublic() {
@@ -153,11 +157,9 @@ export default function BardeNavigationpublic() {
     };
   }, []);
 
- 
   return (
     <>
       <Nav isScrolled={isScrolled}>
-        
         <Logo onClick={() => (window.location.href = "/")}>
           <img src={aodblanc} alt="Logo du Cabinet" />
         </Logo>
@@ -170,15 +172,24 @@ export default function BardeNavigationpublic() {
         </HamburgerButton>
         {/* Menu principal */}
         <Menu isOpen={isMenuOpen}>
-          <NavLink href="/">Accueil</NavLink>
-          <NavLink href="/services">Service</NavLink>
-          <NavLink href="/apropos">À propos</NavLink>
-          <NavLink href="/realisation">Realisations</NavLink>
-          <NavLink href="/contact">Contact</NavLink>
-
+          <NavLink href="/">
+            <Home size={20} /> Accueil
+          </NavLink>
+          <NavLink href="/services">
+            <Briefcase size={20} /> Service
+          </NavLink>
+          <NavLink href="/apropos">
+            <Info size={20} /> À propos
+          </NavLink>
+          <NavLink href="/realisation">
+            <Layers size={20} /> Realisations
+          </NavLink>
+          <NavLink href="/contact">
+            <Mail size={20} /> Contact
+          </NavLink>
         </Menu>
       </Nav>
-      <main className=" bg-[#011d23] " style={{ paddingTop: "80px" }}></main>
+      <main style={{ paddingTop: "80px" }}></main>
     </>
   );
 }

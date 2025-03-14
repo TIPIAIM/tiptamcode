@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Modal from "react-modal";
 import Seo from "../Seo"; // Ajout du composant SEO
 import { Helmet } from "react-helmet"; // Pour le schema JSON-LD
-import Footer from "../Footerrr";
+//import Footer from "../Footerrr";
 
 // Chargement différé des composants enfants
 const Acueilpourlesautres = lazy(() => import("./Acueilrealisation"));
+const Footer = lazy(() => import("../Footerrr"));
 
 // Configuration de base pour React Modal
 Modal.setAppElement("#root");
@@ -204,6 +205,43 @@ const MoreButton = styled(motion.button).attrs(() => ({
   }
 `;
 
+const MoreButonlien = styled(motion.button).attrs(() => ({
+  whileHover: {
+    scale: 1.05,
+    backgroundColor: "#011d23",
+   boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
+  },
+  whileTap: { scale: 0.95 },
+  boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
+}))`
+  background: #011d23;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      60deg,
+      transparent,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+`;
 const customModalStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -368,6 +406,7 @@ const Realisations = () => {
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
+      link: "https://www.aod-avocats.net", // Ajout du lien
       fullDescription:
         "Une plateforme complète avec annuaire, système de chat en temps réel, prise d'information, gestion des données et ...",
     },
@@ -386,6 +425,7 @@ const Realisations = () => {
       duration: "5 mois",
       role: "Développement Full-Stack",
       status: "En développement",
+      link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
         "Système intelligent de gestion des demandes de casier judiciaire ...",
     },
@@ -399,6 +439,7 @@ const Realisations = () => {
       duration: "3 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
+      link: "https://www.tiptamcode.com/local-dickob", // Ajout du lien
       fullDescription:
         "Application web avec alertes intelligentes et suivi en temps réel des différentes activités de l'entreprise...",
     },
@@ -412,6 +453,7 @@ const Realisations = () => {
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "En maintenance",
+      link: "https://www.tiptamcode.com/g-transport", // Ajout du lien
       fullDescription:
         "Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de ...",
     },
@@ -424,6 +466,7 @@ const Realisations = () => {
       duration: "2 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
+      link: "https://www.tiptamcode.com", // Ajout du lien
       fullDescription:
         "Application web de gestion qui affiche l'image de l'entreprise sur sur le web et suivi en temps réel des différentes activités de l'activité et autres ...",
     },
@@ -441,8 +484,11 @@ const Realisations = () => {
 
   return (
     <>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-     crossorigin="anonymous"></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
       <Seo
         title="Nos Réalisations - Projets de Développement Web par TIPTAMCode"
         description="Découvrez nos projets clés en développement web et mobile. Solutions sur mesure avec React, Node.js et technologies modernes."
@@ -452,7 +498,10 @@ const Realisations = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateProjectSchema())}
         </script>
-        <meta name="google-adsense-account" content="ca-pub-8656657415098715"></meta>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-8656657415098715"
+        ></meta>
       </Helmet>
       <Suspense fallback={<div>Chargement...</div>}>
         <Acueilpourlesautres />
@@ -485,82 +534,88 @@ const Realisations = () => {
         </ProjectsGrid>
 
         <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={handleCloseModal}
-          style={{
-            ...customModalStyles,
-            content: {
-              ...customModalStyles.content,
-              "@media (max-width: 768px)": {
-                width: "95%",
-                height: "90vh",
-              },
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        style={{
+          ...customModalStyles,
+          content: {
+            ...customModalStyles.content,
+            "@media (max-width: 768px)": {
+              width: "95%",
+              height: "90vh",
             },
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {selectedProject && (
-              <motion.div
-                key="modal-content"
-                variants={modalAnimation}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                <ModalImage
-                  src={selectedProject.image}
-                  alt={`Détails du projet ${selectedProject.title}`}
-                  loading="lazy"
-                />
+          },
+        }}
+      >
+        <AnimatePresence mode="wait">
+          {selectedProject && (
+            <motion.div
+              key="modal-content"
+              variants={modalAnimation}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <ModalImage
+                src={selectedProject.image}
+                alt={`Détails du projet ${selectedProject.title}`}
+                loading="lazy"
+              />
 
-                <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+              <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
 
-                <ModalContent>
-                  <motion.h2 variants={itemAnimation}>
-                    {selectedProject.title}
-                  </motion.h2>
+              <ModalContent>
+                <motion.h2 variants={itemAnimation}>
+                  {selectedProject.title}
+                </motion.h2>
 
-                  <motion.p variants={itemAnimation}>
-                    {selectedProject.fullDescription}
-                  </motion.p>
+                <motion.p variants={itemAnimation}>
+                  {selectedProject.fullDescription}
+                </motion.p>
 
-                  <SectionTitle>TIPTAM Code</SectionTitle>
-                  <TechList>
-                    {selectedProject.technologies.map((tech, index) => (
-                      <TechItem
-                        key={index}
-                        variants={itemAnimation}
-                        custom={index}
-                      >
-                        {tech}
-                      </TechItem>
-                    ))}
-                  </TechList>
+                <SectionTitle>TIPTAM Code</SectionTitle>
+                <TechList>
+                  {selectedProject.technologies.map((tech, index) => (
+                    <TechItem
+                      key={index}
+                      variants={itemAnimation}
+                      custom={index}
+                    >
+                      {tech}
+                    </TechItem>
+                  ))}
+                </TechList>
 
-                  <DetailGrid>
-                    {Object.entries({
-                      Durée: selectedProject.duration,
-                      Rôle: selectedProject.role,
-                      Statut: selectedProject.status,
-                    }).map(([key, value]) => (
-                      <DetailItem key={key} variants={itemAnimation}>
-                        <strong>{key}</strong>
-                        {value}
-                      </DetailItem>
-                    ))}
-                  </DetailGrid>
+                <DetailGrid>
+                  {Object.entries({
+                    Durée: selectedProject.duration,
+                    Rôle: selectedProject.role,
+                    Statut: selectedProject.status,
+                  }).map(([key, value]) => (
+                    <DetailItem key={key} variants={itemAnimation}>
+                      <strong>{key}</strong>
+                      {value}
+                    </DetailItem>
+                  ))}
+                </DetailGrid>
 
-                  <MoreButton
+                <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                 
+                  <MoreButonlien
+                    onClick={() => window.open(selectedProject.link, "_blank")}
+                  >
+                    Voir le projet
+                  </MoreButonlien> <MoreButton
                     onClick={handleCloseModal}
-                    style={{ marginTop: "1rem" }}
                   >
                     Fermer
                   </MoreButton>
-                </ModalContent>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Modal>
+                </div>
+              </ModalContent>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Modal>
       </ProjectsContainer>
       <Footer />
     </>

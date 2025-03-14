@@ -150,6 +150,43 @@ const ProjectTitle = styled.h3`
   font-size: 1.3rem;
 `;
 
+const MoreButonlien = styled(motion.button).attrs(() => ({
+  whileHover: {
+    scale: 1.05,
+    backgroundColor: "#011d23",
+   boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
+  },
+  whileTap: { scale: 0.95 },
+  boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
+}))`
+  background: #011d23;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      60deg,
+      transparent,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+`;
 const ProjectExcerpt = styled.p`
   color: #666;
   margin-bottom: 1.5rem;
@@ -337,6 +374,7 @@ const Realisation3 = () => {
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
+      link: "https://www.aod-avocats.net", // Ajout du lien
       fullDescription:
         "Une plateforme complète avec annuaire, système de chat en temps réel, prise d'information, gestion des données et ...",
     },
@@ -352,9 +390,10 @@ const Realisation3 = () => {
         "Java JEE",
         "Django",
       ],
-      duration: "6 mois",
+      duration: "5 mois",
       role: "Développement Full-Stack",
       status: "En développement",
+      link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
         "Système intelligent de gestion des demandes de casier judiciaire ...",
     },
@@ -365,12 +404,13 @@ const Realisation3 = () => {
       description:
         "Suivi des personnalisé des différentes activités entrées/sorties des de l'entreprise en locale",
       technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
-      duration: "4 mois",
+      duration: "3 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
+      link: "https://www.tiptamcode.com/local-dickob", // Ajout du lien
       fullDescription:
         "Application web avec alertes intelligentes et suivi en temps réel des différentes activités de l'entreprise...",
-    },
+    }
   ];
 
   const handleOpenModal = (project) => {
@@ -411,74 +451,89 @@ const Realisation3 = () => {
         ))}
       </ProjectsGrid>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={handleCloseModal}
-        style={customModalStyles}
-        contentLabel="Détails du projet"
-      >
-        <AnimatePresence mode="wait">
-          {selectedProject && (
-            <motion.div
-              key="modal-content"
-              variants={modalAnimation}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+           <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={handleCloseModal}
+              style={{
+                ...customModalStyles,
+                content: {
+                  ...customModalStyles.content,
+                  "@media (max-width: 768px)": {
+                    width: "95%",
+                    height: "90vh",
+                  },
+                },
+              }}
             >
-              <ModalImage
-                src={selectedProject.image}
-                alt={selectedProject.title}
-              />
-
-              <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
-
-              <ModalContent>
-                <motion.h2 variants={itemAnimation}>
-                  {selectedProject.title}
-                </motion.h2>
-
-                <motion.p variants={itemAnimation}>
-                  {selectedProject.fullDescription}
-                </motion.p>
-
-                <SectionTitle>TIPTAM Code</SectionTitle>
-                <TechList>
-                  {selectedProject.technologies.map((tech, index) => (
-                    <TechItem
-                      key={index}
-                      variants={itemAnimation}
-                      custom={index}
-                    >
-                      {tech}
-                    </TechItem>
-                  ))}
-                </TechList>
-
-                <DetailGrid>
-                  {Object.entries({
-                    Durée: selectedProject.duration,
-                    Rôle: selectedProject.role,
-                    Statut: selectedProject.status,
-                  }).map(([key, value]) => (
-                    <DetailItem key={key} variants={itemAnimation}>
-                      <strong>{key}</strong>
-                      {value}
-                    </DetailItem>
-                  ))}
-                </DetailGrid>
-
-                <MoreButton
-                  onClick={handleCloseModal}
-                  style={{ marginTop: "1rem" }}
-                >
-                  Fermer
-                </MoreButton>
-              </ModalContent>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Modal>
+              <AnimatePresence mode="wait">
+                {selectedProject && (
+                  <motion.div
+                    key="modal-content"
+                    variants={modalAnimation}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <ModalImage
+                      src={selectedProject.image}
+                      alt={`Détails du projet ${selectedProject.title}`}
+                      loading="lazy"
+                    />
+      
+                    <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+      
+                    <ModalContent>
+                      <motion.h2 variants={itemAnimation}>
+                        {selectedProject.title}
+                      </motion.h2>
+      
+                      <motion.p variants={itemAnimation}>
+                        {selectedProject.fullDescription}
+                      </motion.p>
+      
+                      <SectionTitle>TIPTAM Code</SectionTitle>
+                      <TechList>
+                        {selectedProject.technologies.map((tech, index) => (
+                          <TechItem
+                            key={index}
+                            variants={itemAnimation}
+                            custom={index}
+                          >
+                            {tech}
+                          </TechItem>
+                        ))}
+                      </TechList>
+      
+                      <DetailGrid>
+                        {Object.entries({
+                          Durée: selectedProject.duration,
+                          Rôle: selectedProject.role,
+                          Statut: selectedProject.status,
+                        }).map(([key, value]) => (
+                          <DetailItem key={key} variants={itemAnimation}>
+                            <strong>{key}</strong>
+                            {value}
+                          </DetailItem>
+                        ))}
+                      </DetailGrid>
+      
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                       
+                        <MoreButonlien
+                          onClick={() => window.open(selectedProject.link, "_blank")}
+                        >
+                          Voir le projet
+                        </MoreButonlien> <MoreButton
+                          onClick={handleCloseModal}
+                        >
+                          Fermer
+                        </MoreButton>
+                      </div>
+                    </ModalContent>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Modal>
     </ProjectsContainer>
   );
 };
