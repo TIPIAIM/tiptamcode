@@ -412,9 +412,9 @@ const Realisations = () => {
     },
     {
       id: 2,
-      title: "Casier judiciaire",
+      title: "Private",//Casier judiciaire
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes de casier judiciaire",
+      description: "Solution de gestion des demandes ...(private)",//Solution de gestion des demandes de casier judiciaire
       technologies: [
         "Reactjs",
         "React native",
@@ -427,7 +427,7 @@ const Realisations = () => {
       status: "En développement",
       link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
-        "Système intelligent de gestion des demandes de casier judiciaire ...",
+        "Système intelligent de gestion des demandes de (private) ...",//casier judiciaire
     },
     {
       id: 3,
@@ -445,10 +445,10 @@ const Realisations = () => {
     },
     {
       id: 4,
-      title: "Le transport",
+      title: "Private",//Le transport
       image: "/img/sttis.webp",
       description:
-        "Suivi des personnalisé des différentes activités entrées/sorties sur les longues voyages",
+        "Suivi des personnalisé des différentes activités entrées/sorties sur les ... private",//longues voyages
       technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
       duration: "4 mois",
       role: "Développement Full-Stack",

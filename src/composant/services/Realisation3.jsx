@@ -380,9 +380,9 @@ const Realisation3 = () => {
     },
     {
       id: 2,
-      title: "Casier judiciaire",
+      title: " Judiciaire private",//Casier
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes de casier judiciaire",
+      description: "Solution de gestion des demandes ...(private) judiciaire",//de casier
       technologies: [
         "Reactjs",
         "React native",
@@ -395,7 +395,7 @@ const Realisation3 = () => {
       status: "En développement",
       link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
-        "Système intelligent de gestion des demandes de casier judiciaire ...",
+        "Système intelligent de gestion des demandes (private) ...",//de casier judiciaire
     },
     {
       id: 3,
