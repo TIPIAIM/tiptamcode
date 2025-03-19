@@ -427,8 +427,9 @@ const Realisations = () => {
       status: "En développement",
       link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
-        "Système intelligent de gestion des demandes de (private) ...",//casier judiciaire
+        "L informations est confidentielle",//Système intelligent de gestion des demandes de (private) ... casier judiciaire
     },
+    
     {
       id: 3,
       title: "Base de données DIKOB",
@@ -455,13 +456,13 @@ const Realisations = () => {
       status: "En maintenance",
       link: "https://www.tiptamcode.com/g-transport", // Ajout du lien
       fullDescription:
-        "Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de ...",
+        " L'informations est confidentiel",//Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de 
     },
     {
       id: 5,
       title: "Le projet TIPTAMCode",
       image: "/img/TIPTAM-Code.avif",
-      description: "Site vitrine pour l'entreprise Technique info pour tous AM",
+      description: "Site pour l'entreprise Technique info pour tous AM",
       technologies: ["React", "Mongodb", "Node.js", "Express", "AI"],
       duration: "2 mois",
       role: "Développement Full-Stack",

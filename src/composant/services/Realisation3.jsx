@@ -378,11 +378,12 @@ const Realisation3 = () => {
       fullDescription:
         "Une plateforme complète avec annuaire, système de chat en temps réel, prise d'information, gestion des données et ...",
     },
+
     {
       id: 2,
       title: " Judiciaire private",//Casier
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes ...(private) judiciaire",//de casier
+      description: "Solution de gestion (confidentielle)...(private)",//des demandes de casier judiciaire
       technologies: [
         "Reactjs",
         "React native",
@@ -395,7 +396,7 @@ const Realisation3 = () => {
       status: "En développement",
       link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
       fullDescription:
-        "Système intelligent de gestion des demandes (private) ...",//de casier judiciaire
+        "L'information est confidentielle  ...",//Système intelligent de gestion des demandes (private) de casier judiciaire
     },
     {
       id: 3,
