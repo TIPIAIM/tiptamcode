@@ -388,8 +388,9 @@ const Realisation3 = () => {
         "Reactjs",
         "React native",
         "Mongodb",
-        "Java JEE",
-        "Django",
+        "Node.js",
+        "Express",
+        
       ],
       duration: "5 mois",
       role: "Développement Full-Stack",
