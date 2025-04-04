@@ -258,19 +258,10 @@ export default function Contact() {
         description="Contactez le Technique info . Formulaire de contact sécurisé et réponse rapide garantie.  "
         keywords="projets développement web, applications React, solutions digitales, études de cas techniques"
       />
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
-        crossorigin="anonymous"
-      ></script>
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify(createSchemaMarkup())}
         </script>
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-8656657415098715"
-        ></meta>
       </Helmet>
 
       <Acueilrealisercontact/>

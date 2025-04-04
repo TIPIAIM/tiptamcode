@@ -401,18 +401,17 @@ const Realisation3 = () => {
     },
     {
       id: 3,
-      title: "Base de données DIKOB",
-      image: "/img/tiptamcode.avif",
-      description:
-        "Suivi des personnalisé des différentes activités entrées/sorties des de l'entreprise en locale",
-      technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
-      duration: "3 mois",
+      title: "Le projet E-Commerce",
+      image: "/img/fondbleufonce.avif",
+      description: "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans la décoration d'intérieur, les articles de maison et les vêtements, fondée en 2017 par Fatoumata Binta Sow",
+      technologies: ["React + vitejs", "Mongodb", "Node.js", "Express", "AI", "EmailJS"],
+      duration: "2 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
-      link: "https://www.tiptamcode.com/local-dickob", // Ajout du lien
+      link: "https://bibiabusness.vercel.app/", // Ajout du lien
       fullDescription:
-        "Application web avec alertes intelligentes et suivi en temps réel des différentes activités de l'entreprise...",
-    }
+        "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans la décoration d'intérieur, les articles de maison et les vêtements, fondée en 2017 par Fatoumata Binta Sow",
+    },
   ];
 
   const handleOpenModal = (project) => {

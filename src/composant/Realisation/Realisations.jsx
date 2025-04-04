@@ -471,6 +471,19 @@ const Realisations = () => {
       fullDescription:
         "Application web de gestion qui affiche l'image de l'entreprise sur sur le web et suivi en temps réel des différentes activités de l'activité et autres ...",
     },
+    {
+      id: 6,
+      title: "Le projet E-Commerce",
+      image: "/img/fondbleufonce.avif",
+      description: "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans la décoration d'intérieur, les articles de maison et les vêtements, fondée en 2017 par Fatoumata Binta Sow",
+      technologies: ["React + vitejs", "Mongodb", "Node.js", "Express", "AI", "EmailJS"],
+      duration: "2 mois",
+      role: "Développement Full-Stack",
+      status: "Terminer",
+      link: "https://bibiabusness.vercel.app/", // Ajout du lien
+      fullDescription:
+        "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans la décoration d'intérieur, les articles de maison et les vêtements, fondée en 2017 par Fatoumata Binta Sow",
+    },
   ];
 
   const handleOpenModal = (project) => {
@@ -499,10 +512,7 @@ const Realisations = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateProjectSchema())}
         </script>
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-8656657415098715"
-        ></meta>
+       
       </Helmet>
       <Suspense fallback={<div>Chargement...</div>}>
         <Acueilpourlesautres />
