@@ -475,7 +475,7 @@ const Realisations = () => {
       id: 6,
       title: "Le projet E-Commerce",
       image: "/img/fondbleufonce.avif",
-      description: "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans la décoration d'intérieur, les articles de maison et les vêtements, fondée en 2017 par Fatoumata Binta Sow",
+      description: "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans les articles de maison et les vêtements",
       technologies: ["React + vitejs", "Mongodb", "Node.js", "Express", "AI", "EmailJS"],
       duration: "2 mois",
       role: "Développement Full-Stack",
