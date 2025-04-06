@@ -263,7 +263,8 @@ export default function Contact() {
           {JSON.stringify(createSchemaMarkup())}
         </script>
       </Helmet>
-
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
       <Acueilrealisercontact/>
       <ContactContainer>
         <ImageSection data-aos="fade-right">

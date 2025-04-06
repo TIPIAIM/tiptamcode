@@ -209,7 +209,7 @@ const MoreButonlien = styled(motion.button).attrs(() => ({
   whileHover: {
     scale: 1.05,
     backgroundColor: "#011d23",
-   boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
+    boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
   },
   whileTap: { scale: 0.95 },
   boxShadow: "0 4px 15px rgba(169, 111, 51, 0.3)",
@@ -412,9 +412,9 @@ const Realisations = () => {
     },
     {
       id: 2,
-      title: "Private",//Casier judiciaire
+      title: "Private", //Casier judiciaire
       image: "/img/jurid1.avif",
-      description: "Solution de gestion des demandes ...(private)",//Solution de gestion des demandes de casier judiciaire
+      description: "Solution de gestion des demandes ...(private)", //Solution de gestion des demandes de casier judiciaire
       technologies: [
         "Reactjs",
         "React native",
@@ -426,10 +426,9 @@ const Realisations = () => {
       role: "Développement Full-Stack",
       status: "En développement",
       link: "https://www.tiptamcode.com/en-cour", // Ajout du lien
-      fullDescription:
-        "L informations est confidentielle",//Système intelligent de gestion des demandes de (private) ... casier judiciaire
+      fullDescription: "L informations est confidentielle", //Système intelligent de gestion des demandes de (private) ... casier judiciaire
     },
-    
+
     {
       id: 3,
       title: "Base de données DIKOB",
@@ -446,17 +445,16 @@ const Realisations = () => {
     },
     {
       id: 4,
-      title: "Private",//Le transport
+      title: "Private", //Le transport
       image: "/img/sttis.webp",
       description:
-        "Suivi des personnalisé des différentes activités entrées/sorties sur les ... private",//longues voyages
+        "Suivi des personnalisé des différentes activités entrées/sorties sur les ... private", //longues voyages
       technologies: ["React", "Mysql", "Node.js", "Express", "AI"],
       duration: "4 mois",
       role: "Développement Full-Stack",
       status: "En maintenance",
       link: "https://www.tiptamcode.com/g-transport", // Ajout du lien
-      fullDescription:
-        " L'informations est confidentiel",//Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de 
+      fullDescription: " L'informations est confidentiel", //Application web de gestion de transport avec alertes intelligentes et suivi en temps réel des différentes activités de
     },
     {
       id: 5,
@@ -475,8 +473,16 @@ const Realisations = () => {
       id: 6,
       title: "Le projet E-Commerce",
       image: "/img/fondbleufonce.avif",
-      description: "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans les articles de maison et les vêtements",
-      technologies: ["React + vitejs", "Mongodb", "Node.js", "Express", "AI", "EmailJS"],
+      description:
+        "BibiaBusiness est une boutique en ligne guinéenne spécialisée dans les articles de maison et les vêtements",
+      technologies: [
+        "React + vitejs",
+        "Mongodb",
+        "Node.js",
+        "Express",
+        "AI",
+        "EmailJS",
+      ],
       duration: "2 mois",
       role: "Développement Full-Stack",
       status: "Terminer",
@@ -512,8 +518,9 @@ const Realisations = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateProjectSchema())}
         </script>
-       
       </Helmet>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+     crossorigin="anonymous"></script>
       <Suspense fallback={<div>Chargement...</div>}>
         <Acueilpourlesautres />
       </Suspense>
@@ -545,88 +552,88 @@ const Realisations = () => {
         </ProjectsGrid>
 
         <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={handleCloseModal}
-        style={{
-          ...customModalStyles,
-          content: {
-            ...customModalStyles.content,
-            "@media (max-width: 768px)": {
-              width: "95%",
-              height: "90vh",
+          isOpen={modalIsOpen}
+          onRequestClose={handleCloseModal}
+          style={{
+            ...customModalStyles,
+            content: {
+              ...customModalStyles.content,
+              "@media (max-width: 768px)": {
+                width: "95%",
+                height: "90vh",
+              },
             },
-          },
-        }}
-      >
-        <AnimatePresence mode="wait">
-          {selectedProject && (
-            <motion.div
-              key="modal-content"
-              variants={modalAnimation}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <ModalImage
-                src={selectedProject.image}
-                alt={`Détails du projet ${selectedProject.title}`}
-                loading="lazy"
-              />
+          }}
+        >
+          <AnimatePresence mode="wait">
+            {selectedProject && (
+              <motion.div
+                key="modal-content"
+                variants={modalAnimation}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <ModalImage
+                  src={selectedProject.image}
+                  alt={`Détails du projet ${selectedProject.title}`}
+                  loading="lazy"
+                />
 
-              <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+                <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
 
-              <ModalContent>
-                <motion.h2 variants={itemAnimation}>
-                  {selectedProject.title}
-                </motion.h2>
+                <ModalContent>
+                  <motion.h2 variants={itemAnimation}>
+                    {selectedProject.title}
+                  </motion.h2>
 
-                <motion.p variants={itemAnimation}>
-                  {selectedProject.fullDescription}
-                </motion.p>
+                  <motion.p variants={itemAnimation}>
+                    {selectedProject.fullDescription}
+                  </motion.p>
 
-                <SectionTitle>TIPTAM Code</SectionTitle>
-                <TechList>
-                  {selectedProject.technologies.map((tech, index) => (
-                    <TechItem
-                      key={index}
-                      variants={itemAnimation}
-                      custom={index}
+                  <SectionTitle>TIPTAM Code</SectionTitle>
+                  <TechList>
+                    {selectedProject.technologies.map((tech, index) => (
+                      <TechItem
+                        key={index}
+                        variants={itemAnimation}
+                        custom={index}
+                      >
+                        {tech}
+                      </TechItem>
+                    ))}
+                  </TechList>
+
+                  <DetailGrid>
+                    {Object.entries({
+                      Durée: selectedProject.duration,
+                      Rôle: selectedProject.role,
+                      Statut: selectedProject.status,
+                    }).map(([key, value]) => (
+                      <DetailItem key={key} variants={itemAnimation}>
+                        <strong>{key}</strong>
+                        {value}
+                      </DetailItem>
+                    ))}
+                  </DetailGrid>
+
+                  <div
+                    style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}
+                  >
+                    <MoreButonlien
+                      onClick={() =>
+                        window.open(selectedProject.link, "_blank")
+                      }
                     >
-                      {tech}
-                    </TechItem>
-                  ))}
-                </TechList>
-
-                <DetailGrid>
-                  {Object.entries({
-                    Durée: selectedProject.duration,
-                    Rôle: selectedProject.role,
-                    Statut: selectedProject.status,
-                  }).map(([key, value]) => (
-                    <DetailItem key={key} variants={itemAnimation}>
-                      <strong>{key}</strong>
-                      {value}
-                    </DetailItem>
-                  ))}
-                </DetailGrid>
-
-                <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-                 
-                  <MoreButonlien
-                    onClick={() => window.open(selectedProject.link, "_blank")}
-                  >
-                    Voir le projet
-                  </MoreButonlien> <MoreButton
-                    onClick={handleCloseModal}
-                  >
-                    Fermer
-                  </MoreButton>
-                </div>
-              </ModalContent>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Modal>
+                      Voir le projet
+                    </MoreButonlien>{" "}
+                    <MoreButton onClick={handleCloseModal}>Fermer</MoreButton>
+                  </div>
+                </ModalContent>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Modal>
       </ProjectsContainer>
       <Footer />
     </>

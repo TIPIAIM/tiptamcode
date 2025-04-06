@@ -254,14 +254,18 @@ const Accueil = () => {
           <WindParticles />
         </Canvas>
       </CanvasWrapper>
-
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9951347176780036"
+        crossorigin="anonymous"
+      ></script>
       <ContentWrapper>
         <MainHeading
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-             Votre Partenaire en <GradientText>Développement Web </GradientText>
+          Votre Partenaire en <GradientText>Développement Web </GradientText>
         </MainHeading>
 
         <MessageText
