@@ -193,7 +193,7 @@ const WindParticles = () => {
     <points ref={meshRef}>
       <bufferGeometry>
         <bufferAttribute
-          attach="attributes-position" // Correction ici
+          attach="attributes-position" // Correction
           array={positions} // Tableau de positions
           count={positions.length / 3} // Nombre de sommets
           itemSize={3} // Taille de chaque sommet (x, y, z)
