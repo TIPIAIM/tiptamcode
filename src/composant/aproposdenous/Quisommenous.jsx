@@ -323,7 +323,7 @@ const APropos = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <MainVisual
-              src="/img/euipeaod.avif"
+              src="/img/euipeaod.avif" 
               srcSet="/img/euipeaod.avif 480w, /img/euipeaod.avif 768w, /img/euipeaod.avif 1200w"
               sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
               alt="Équipe TIPTAMCode collaborant sur un projet digital"
