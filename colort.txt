@@ -1,5 +1,7 @@
 Palette de couleur
 #b96f33 le chocolat RGB(185, 111, 51)
+#eb8837 
+#b35202 
 #a07753  rgba(160, 119, 83, 1)
 #011d23 le blue rgba(1, 29, 35, 0.7)  rgba(1, 29, 35, 0.66)
 #f4f5f1  hsl(195, 42.90%, 94.50%)

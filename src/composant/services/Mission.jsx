@@ -1,320 +1,365 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Target, HeartHandshake, Globe, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { memo, useMemo } from "react";
 
-const MissionContainer = styled.section`
-  padding: 5rem 1rem;
-  background: #011d23;
+/* ====== ANIMATIONS ====== */
+const float = keyframes`
+  0%   { transform: translateY(0px) }
+  50%  { transform: translateY(-8px) }
+  100% { transform: translateY(0px) }
+`;
+
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`;
+
+const glowPulse = keyframes`
+  0% { box-shadow: 0 0 0px rgba(242, 201, 76, 0.0); }
+  50% { box-shadow: 0 0 28px rgba(242, 201, 76, 0.35); }
+  100% { box-shadow: 0 0 0px rgba(242, 201, 76, 0.0); }
+`;
+
+/* ====== VARIANTS FRAMER ====== */
+const containerVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 120, damping: 16 },
+  },
+};
+
+/* ====== STYLES ====== */
+const MissionSection = styled.section`
+  padding: 6rem 1.5rem;
+  background: radial-gradient(1200px 600px at 20% 10%, #b96f33 50%, transparent 50%)
+      no-repeat,
+    radial-gradient(900px 500px at 90% 0%, black 8%, transparent 50%) no-repeat,
+    linear-gradient(135deg, #011d23 0%, #07232d 100%);
   max-width: 1400px;
   margin: 0 auto;
+  color: #f4f5f1;
 
   @media (max-width: 768px) {
-    padding: 3rem 1rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 2rem 0.5rem;
+    padding: 4rem 1rem;
   }
 `;
 
 const Header = styled.div`
   text-align: center;
-  margin-bottom: 4rem;
-
-  @media (max-width: 480px) {
-    margin-bottom: 2rem;
-  }
+  margin-bottom: 3.5rem;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #a07753;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 0px rgba(169, 111, 51, 0.2);
-
-  @media (min-width: 768px) {
-    font-size: 3rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.75rem;
-     text-align: center;
-  }
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-weight: 800;
+  color: #f2c94c; /* semygprimar */
+  letter-spacing: 0.5px;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 2px 10px rgba(242, 201, 76, 0.25);
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1rem;
-  color: #f4f5f1;
-  max-width: 800px;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  max-width: 760px;
   margin: 0 auto;
-  font-weight: 500;
-  line-height: 1.6;
-
-  @media (min-width: 768px) {
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1rem;
-    padding: 0rem 2rem;
-     text-align: left;
-  }
+  font-weight: 700;
+  line-height: 1.75;
+  opacity: 0.92;
 `;
 
-const MissionGrid = styled.div`
+const MissionGrid = styled(motion.div)`
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-
-  @media (min-width: 480px) {
-    grid-template-columns: repeat(2, 1fr);
-
-    }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 `;
 
-const MissionCard = styled(motion.div)`
-  min-height: 500px;
-  perspective: 1000px;
+const MissionCard = styled(motion.article)`
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #102b34 0%, #0b242c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: box-shadow 0.3s ease;
 
-  @media (max-width: 768px) {
-    min-height: 450px;
+  &:hover {
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(242, 201, 76, 0.12) inset;
   }
 
-  @media (max-width: 480px) {
-    min-height: 400px;
-     padding: 1rem;
+  /* reflet diagonal léger */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -40% -10% auto auto;
+    width: 120%;
+    height: 120%;
+    background: conic-gradient(
+      from 180deg,
+      rgba(255, 255, 255, 0.06),
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 255, 255, 0.03)
+    );
+    opacity: 0.25;
+    transform: translate3d(0, 0, 0);
+    pointer-events: none;
   }
 `;
 
 const CardContent = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  border-radius: 0.2rem;
-  padding: 1.5rem;
-  background: ${(props) => props.bgcolor || "#a07753"};
-  box-shadow: 0 10px 30px rgba(1, 29, 35, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 1;
+  padding: 2rem 1.5rem;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.75rem;
   text-align: center;
-
-  &:hover {
-    transform: translateY(-10px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-
-  @media (hover: none) {
-    &:hover {
-      transform: none;
-    }
-  }
 `;
 
-const MissionIcon = styled.div`
-  width: 70px;
-  height: 70px;
+const IconWrap = styled.div`
+  position: relative;
+  margin: 0 auto 0.75rem;
+  width: 86px;
+  height: 86px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  background: #011d23;
-  z-index: 1;
+  background: radial-gradient(circle at 35% 35%, #f2c94c 0%, #a07753 68%, #8f663f 100%);
+  animation: ${glowPulse} 3.2s ease-in-out infinite;
 
-  svg {
-    width: 35px;
-    height: 35px;
-    stroke-width: 1.5;
-    color: #b96f33;
+  display: grid;
+  place-items: center;
+
+  /* anneau tournant */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 0deg, rgba(242, 201, 76, 0.7), rgba(161, 119, 83, 0) 40%),
+      radial-gradient(closest-side, transparent 78%, rgba(242, 201, 76, 0.35) 80%, transparent 81%);
+    animation: ${spin} 6s linear infinite;
+    pointer-events: none;
   }
 
-  @media (max-width: 480px) {
-    width: 60px;
-    height: 60px;
-    
-    svg {
-      width: 30px;
-      height: 30px;
-    }
+  /* halo doux */
+  &::after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    filter: blur(16px);
+    background: rgba(242, 201, 76, 0.22);
+    z-index: -1;
+  }
+
+  svg {
+    width: 38px;
+    height: 38px;
+    color: #011d23; /* contraste */
+  }
+
+  /* flotter en continu (désactivé si reduced-motion) */
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${glowPulse} 3.2s ease-in-out infinite, ${float} 5s ease-in-out infinite;
   }
 `;
 
 const MissionTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  margin-bottom: 1rem;
-  color: #a07753;
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
+  color: #f2c94c;
+  letter-spacing: 0.3px;
+  margin: 0.2rem 0 0.4rem;
 `;
 
 const MissionDescription = styled.p`
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #f4f5f1;
-  opacity: 0.9;
-  margin-bottom: 1rem;
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
+  font-size: 0.96rem;
+  color: #e8eceb;
+  opacity: 0.95;
+  line-height: 1.65;
 `;
 
 const CommitmentsList = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
-  flex-grow: 1;
-  width: 100%;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.6rem;
 `;
 
-const CommitmentItem = styled.li`
-  padding: 0.6rem;
-  margin-bottom: 0.5rem;
-  background: rgba(244, 245, 241, 0.1);
-  border-radius: 0.2rem;
+const CommitmentItem = styled(motion.li)`
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.06);
   color: #f4f5f1;
-  transition: all 0.3s;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  text-align: left;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 
   &:hover {
-    background: rgba(244, 245, 241, 0.2);
-    transform: scale(1.05);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.85rem;
-    padding: 0.5rem;
-  }
-
-  @media (hover: none) {
-    &:hover {
-      transform: none;
-    }
+    transform: translateX(6px);
+    background: rgba(242, 201, 76, 0.16);
+    border-color: rgba(242, 201, 76, 0.35);
   }
 `;
 
+/* ====== COMPOSANT ====== */
 const Mission = () => {
-  const missions = [
-    {
-      title: "Notre Raison d'Être",
-      icon: <Target />,
-      color: "#1a2e35",
-      description: "Donner vie aux visions digitales de nos clients",
-      commitments: [
-        "Écoute active des besoins",
-        "Solutions sur-mesure",
-        "Accompagnement complet",
-        "Technologies innovantes",
-      ],
-    },
-    {
-      title: "Éthique Professionnelle",
-      icon: <HeartHandshake />,
-      color: "#1a2e35",
-      description: "Des relations client basées sur la confiance",
-      commitments: [
-        "Transparence totale",
-        "Respect des délais",
-        "Communication constante",
-        "Déontologie digitale",
-      ],
-    },
-    {
-      title: "Impact Social",
-      icon: <Globe />,
-      color: "#1a2e35",
-      description: "Créer une technologie responsable",
-      commitments: [
-        "Accessibilité numérique",
-        "Éco-conception",
-        "Formation locale",
-        "Open source stratégique",
-      ],
-    },
-    {
-      title: "Collaboration",
-      icon: <Users />,
-      color: "#1a2e35",
-      description: "Co-construction des solutions",
-      commitments: [
-        "Partage d'expertise",
-        "Intelligence collective",
-        "Agilité méthodologique",
-        "Amélioration continue",
-      ],
-    },
-  ];
+  // données mémoïsées pour éviter les re-renders inutiles
+  const missions = useMemo(
+    () => [
+      {
+        title: "Notre Raison d'Être",
+        icon: Target,
+        description: "Donner vie aux visions digitales de nos clients",
+        commitments: [
+          "Écoute active des besoins",
+          "Solutions sur‑mesure",
+          "Accompagnement complet",
+          "Technologies innovantes",
+        ],
+      },
+      {
+        title: "Éthique Professionnelle",
+        icon: HeartHandshake,
+        description: "Des relations client basées sur la confiance",
+        commitments: [
+          "Transparence totale",
+          "Respect des délais",
+          "Communication constante",
+          "Déontologie digitale",
+        ],
+      },
+      {
+        title: "Impact Social",
+        icon: Globe,
+        description: "Créer une technologie responsable",
+        commitments: [
+          "Accessibilité numérique",
+          "Éco‑conception",
+          "Formation locale",
+          "Open source stratégique",
+        ],
+      },
+      {
+        title: "Collaboration",
+        icon: Users,
+        description: "Co‑construction des solutions",
+        commitments: [
+          "Partage d'expertise",
+          "Intelligence collective",
+          "Agilité méthodologique",
+          "Amélioration continue",
+        ],
+      },
+    ],
+    []
+  );
 
   return (
-    <MissionContainer>
+    <MissionSection aria-labelledby="mission-title">
       <Header>
         <Title
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          id="mission-title"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
         >
           Notre Mission
         </Title>
         <Subtitle
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
         >
-          Plus qu`un prestataire, un partenaire engagé dans votre réussite. Nous
-          cherchons constamment à innover dans le domaine du développement web
-          pour offrir les solutions les plus modernes et efficaces.
+          Plus qu’un prestataire, un partenaire engagé dans votre réussite.
+          Nous innovons en continu pour délivrer des solutions modernes,
+          performantes et durables.
         </Subtitle>
       </Header>
 
-      <MissionGrid>
-        {missions.map((mission, index) => (
+      <MissionGrid
+        variants={gridVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {missions.map(({ title, icon: Icon, description, commitments }, idx) => (
           <MissionCard
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{
-              delay: index * 0.4,
-              type: "spring",
-              stiffness: 100,
-            }}
-            viewport={{ once: false }}
+            key={title}
+            variants={cardVariants}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.995 }}
+            role="region"
+            aria-label={title}
           >
-            <CardContent
-              bgcolor={mission.color}
-              whileHover={{
-                rotate: [0, -2, 2, 0],
-                transition: { duration: 3.8 },
-              }}
-            >
-              <MissionIcon>{mission.icon}</MissionIcon>
-              <MissionTitle>{mission.title}</MissionTitle>
-              <MissionDescription>{mission.description}</MissionDescription>
+            <CardContent>
+              {/* Icône animée : flottement + halo + micro‑interactions */}
+              <IconWrap as={motion.div}
+                whileHover={{ rotate: 2, scale: 1.04 }}
+                whileTap={{ scale: 0.98 }}
+                aria-hidden="true"
+              >
+                <motion.div
+                  initial={{ rotate: -6 }}
+                  whileInView={{ rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 120, damping: 10 }}
+                >
+                  <Icon />
+                </motion.div>
+              </IconWrap>
+
+              <MissionTitle>{title}</MissionTitle>
+              <MissionDescription>{description}</MissionDescription>
+
               <CommitmentsList>
-                {mission.commitments.map((item, i) => (
-                  <CommitmentItem key={i}>{item}</CommitmentItem>
+                {commitments.map((c, i) => (
+                  <CommitmentItem
+                    key={`${idx}-${i}`}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.08 * i, duration: 0.35 }}
+                  >
+                    {c}
+                  </CommitmentItem>
                 ))}
               </CommitmentsList>
             </CardContent>
           </MissionCard>
         ))}
       </MissionGrid>
-    </MissionContainer>
+    </MissionSection>
   );
 };
 
-export default Mission;
+export default memo(Mission);
