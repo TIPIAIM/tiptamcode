@@ -27,76 +27,22 @@ const float = keyframes`
   33% { transform: translateY(-6px) rotate(1deg); }
   66% { transform: translateY(3px) rotate(-1deg); }
 `;
-
-const shimmer = keyframes`
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-`;
-
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const scaleIn = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-
-const gradientBackground = keyframes`
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-`;
-
-const particleBurst = keyframes`
-  0% {
-    transform: translate(0, 0) scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--tx), var(--ty)) scale(1);
-    opacity: 0;
-  }
-`;
-
+const shimmer = keyframes`0%{background-position:-200% 0;}100%{background-position:200% 0;}`;
+const pulse = keyframes`0%,100%{opacity:1;}50%{opacity:.7;}`;
+const fadeInUp = keyframes`from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}`;
+const scaleIn = keyframes`from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}`;
+const gradientBackground = keyframes`0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}`;
+const particleBurst = keyframes`0%{transform:translate(0,0) scale(0);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(1);opacity:0;}`;
 const mosaicOut = keyframes`
-  0% { 
-    transform: scale(1) rotate(0deg); 
-    opacity: 1; 
-    filter: blur(0px);
-  }
-  60% { 
-    transform: scale(0.9) rotate(2deg); 
-    opacity: 0.8; 
-  }
-  100% { 
-    transform: scale(0) rotate(5deg); 
-    opacity: 0; 
-    filter: blur(4px);
-  }
+  0%{transform:scale(1) rotate(0deg);opacity:1;filter:blur(0)}
+  60%{transform:scale(.9) rotate(2deg);opacity:.8}
+  100%{transform:scale(0) rotate(5deg);opacity:0;filter:blur(4px)}
 `;
 
 /* ===================== Layout ===================== */
 const AboutContainer = styled.section`
-  padding: 2rem 1rem;
+  padding: max(2rem, env(safe-area-inset-top)) 1rem
+    max(2rem, env(safe-area-inset-bottom));
   background: linear-gradient(135deg, #011d23 50%, #011d23 50%);
   position: relative;
   overflow: hidden;
@@ -112,7 +58,6 @@ const AboutContainer = styled.section`
   @media (min-width: 1200px) {
     padding: 6rem 2rem;
   }
-
   &::before {
     content: "";
     position: absolute;
@@ -138,7 +83,6 @@ const ContentGrid = styled.div`
   align-items: center;
   position: relative;
   z-index: 2;
-
   @media (min-width: 480px) {
     gap: 2.5rem;
   }
@@ -156,48 +100,48 @@ const VisualSection = styled(motion.div)`
   background: #011d23;
   border-radius: 16px;
   overflow: hidden;
-  min-height: 280px;
+  min-height: 260px;
   aspect-ratio: 1;
-  box-shadow: 0 20px 40px rgba(1, 29, 35, 0.2);
+  box-shadow: 0 16px 32px rgba(1, 29, 35, 0.2);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 25px 50px rgba(1, 29, 35, 0.3);
   }
-
   @media (min-width: 480px) {
     aspect-ratio: 16/9;
+    min-height: 260px;
   }
   @media (min-width: 768px) {
-    min-height: 380px;
+    min-height: 360px;
     aspect-ratio: 4/3;
   }
   @media (min-width: 992px) {
     aspect-ratio: unset;
-    min-height: 480px;
+    min-height: 420px;
   }
 `;
 
 const TextContent = styled.div`
-  padding: 1rem;
+  padding: 0.75rem;
   position: relative;
-
+  @media (min-width: 480px) {
+    padding: 1rem;
+  }
   @media (min-width: 768px) {
     padding: 2rem;
   }
 `;
 
 const SectionTitle = styled(motion.h1)`
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 3.5vw, 3.2rem);
   color: #b96f33;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1rem, 2vw, 2rem);
   line-height: 1.2;
   font-weight: 800;
   position: relative;
   display: inline-block;
   animation: ${fadeInUp} 0.8s ease-out;
-
   &::after {
     content: "";
     position: absolute;
@@ -209,17 +153,8 @@ const SectionTitle = styled(motion.h1)`
     border-radius: 2px;
     transition: width 0.5s ease;
   }
-
   &:hover::after {
     width: 100%;
-  }
-
-  @media (min-width: 480px) {
-    font-size: 2.6rem;
-  }
-  @media (min-width: 768px) {
-    font-size: 3.2rem;
-    margin-bottom: 2rem;
   }
 `;
 
@@ -230,9 +165,8 @@ const Highlight = styled.span`
   display: inline-block;
   background: linear-gradient(90deg, #f4f5f1, #f4f5f1);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
-
+  -webkit-text-fill-color: transparent;
   &::before {
     content: "";
     position: absolute;
@@ -243,18 +177,16 @@ const Highlight = styled.span`
     background: linear-gradient(90deg, #b96f33, #a07753);
     transition: width 0.4s ease;
   }
-
   &:hover::before {
     width: 100%;
   }
 `;
 
 const Description = styled(motion.p)`
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #eb8837;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+  font-size: clamp(0.98rem, 2.6vw, 1.2rem);
+  line-height: 1.75;
+  color: #e7eaea;
+  margin-bottom: 1.5rem;
   font-weight: 600;
   animation: ${fadeInUp} 0.8s ease-out 0.2s both;
 `;
@@ -262,27 +194,25 @@ const Description = styled(motion.p)`
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
-
+  gap: 1rem;
+  margin-top: 0.5rem;
   @media (min-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.25rem;
   }
 `;
 
 const StatCard = styled(motion.div)`
-  padding: 1.8rem;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 16px;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
   border: 1px solid rgba(169, 111, 51, 0.15);
-  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
   animation: ${scaleIn} 0.6s ease-out;
-
   &::before {
     content: "";
     position: absolute;
@@ -294,39 +224,36 @@ const StatCard = styled(motion.div)`
     transform: scaleX(0);
     transition: transform 0.3s ease;
   }
-
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-
-    &::before {
-      transform: scaleX(1);
-    }
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  }
+  &:hover::before {
+    transform: scaleX(1);
   }
 `;
 
 const StatValue = styled.div`
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
   color: #b96f33;
   font-weight: 800;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 `;
-
 const StatLabel = styled.div`
   color: #011d23;
-  font-size: 1rem;
-  opacity: 0.9;
+  font-size: 0.95rem;
+  opacity: 0.95;
   font-weight: 500;
 `;
 
 /* ===================== Floating Elements ===================== */
 const FloatingElement = styled.div`
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: linear-gradient(
     135deg,
@@ -335,37 +262,32 @@ const FloatingElement = styled.div`
   );
   animation: ${float} 3s ease-in-out infinite;
   z-index: 1;
-
   &:nth-child(1) {
     top: 20%;
     left: 10%;
-    animation-delay: 0s;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
-
   &:nth-child(2) {
     top: 60%;
     right: 15%;
-    animation-delay: 2s;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0.8s;
   }
-
   &:nth-child(3) {
     bottom: 30%;
     left: 15%;
-    animation-delay: 4s;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
+    animation-delay: 1.6s;
   }
 `;
 
-/* ===================== Team ===================== */
+/* ===================== Team (RESPONSIVE TUNING) ===================== */
 const TeamSection = styled.section`
-  margin-top: 5rem;
-  padding: 4rem 0;
-//  background: linear-gradient(to bottom right, #011d23, #0a272f);
+  margin-top: 3.5rem;
+  padding: 2.5rem 0;
   position: relative;
   overflow: hidden;
 
@@ -379,18 +301,20 @@ const TeamSection = styled.section`
     background: linear-gradient(to right, transparent, #b96f33, transparent);
   }
 
+  @media (min-width: 480px) {
+    margin-top: 4rem;
+    padding: 3rem 0;
+  }
   @media (min-width: 768px) {
-    margin-top: 7rem;
-    padding: 5rem 0;
+    margin-top: 6rem;
+    padding: 4rem 0;
   }
 `;
 
 const TeamTitle = styled(SectionTitle)`
   text-align: center;
-  margin-bottom: 4rem;
-  margin-left: 0;
+  margin-bottom: clamp(2rem, 6vw, 4rem);
   width: 100%;
-
   &::after {
     left: 50%;
     transform: translateX(-50%);
@@ -401,57 +325,68 @@ const TeamTitle = styled(SectionTitle)`
 
 const TeamGrid = styled.div`
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  padding: 0 1rem;
+  gap: clamp(1rem, 4vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  padding: 0 clamp(0.5rem, 3vw, 1.5rem);
   max-width: 1200px;
   margin: 0 auto;
 
-  @media (min-width: 480px) {
-    gap: 2.5rem;
-    padding: 0 2rem;
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 0 0.5rem;
   }
 `;
 
 const TeamMember = styled(motion.div)`
   background: #f4f5f1;
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 16px;
+  /* Pour éviter les coupures sur mobile, on autorise le dépassement */
+  overflow: visible;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 0.4s ease;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.35s ease;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 
   &:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (max-width: 480px) {
+    border-radius: 14px;
   }
 `;
 
 const MemberInfo = styled.div`
-  padding: 2rem;
+  padding: clamp(0.9rem, 3.5vw, 1.5rem);
   text-align: center;
 `;
 
 const MemberName = styled.h3`
   color: #011d23;
-  margin-bottom: 0.8rem;
-  font-size: 1.6rem;
-  font-weight: 700;
+  margin-bottom: 0.35rem;
+  font-size: clamp(1.05rem, 4.5vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.25;
+  word-break: break-word;
 `;
 
 const MemberRole = styled.p`
   color: #a07753;
-  font-size: 1rem;
-  line-height: 1.6;
-  font-weight: 500;
+  font-size: clamp(0.9rem, 3.8vw, 1rem);
+  line-height: 1.55;
+  font-weight: 600;
+  margin: 0 auto;
+  max-width: 38ch; /* empêche les lignes trop longues et améliore la lisibilité */
 `;
 
 const SocialLinks = styled.div`
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap; /* autorise le retour à la ligne sur petits écrans */
 `;
 
 const SocialLink = styled.a`
@@ -467,8 +402,13 @@ const SocialLink = styled.a`
 
   &:hover {
     background: #b96f33;
-    color: white;
+    color: #fff;
     transform: translateY(-3px);
+  }
+
+  @media (max-width: 380px) {
+    width: 36px;
+    height: 36px; /* touche un peu plus petite pour gagner de la place */
   }
 `;
 
@@ -476,9 +416,10 @@ const SocialLink = styled.a`
 const MosaicRoot = styled.div`
   position: relative;
   width: 100%;
-  height: ${({ $h }) => $h || "300px"};
+  /* Hauteur plus faible sur mobile pour dégager le texte */
+  height: ${({ $h }) => $h || "clamp(200px, 45vw, 300px)"};
   overflow: hidden;
-  border-bottom: ${({ $border }) => $border || "5px solid #b96f33"};
+  border-bottom: ${({ $border }) => $border || "4px solid #b96f33"};
   cursor: pointer;
 
   @media (min-width: 768px) {
@@ -492,13 +433,12 @@ const MosaicImg = styled.img`
   object-fit: cover;
   object-position: ${({ $pos }) => $pos || "center"};
   display: block;
-  filter: grayscale(20%) contrast(50%);
+  filter: grayscale(12%) contrast(52%);
   transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), filter 0.6s ease;
   transform-origin: center;
   will-change: transform, filter;
-
   ${MosaicRoot}:hover & {
-    transform: scale(1.06);
+    transform: scale(1.05);
     filter: grayscale(0%) contrast(110%);
   }
 `;
@@ -512,7 +452,6 @@ const MosaicOverlay = styled.div`
   display: grid;
   grid-template-rows: repeat(var(--rows), 1fr);
   grid-template-columns: repeat(var(--cols), 1fr);
-
   @media (prefers-reduced-motion: reduce) {
     display: none;
   }
@@ -521,7 +460,6 @@ const MosaicOverlay = styled.div`
 const Cell = styled.span`
   position: relative;
   overflow: hidden;
-
   &::before {
     content: "";
     position: absolute;
@@ -533,7 +471,6 @@ const Cell = styled.span`
     transform-origin: center;
     opacity: 0;
   }
-
   ${MosaicRoot}:hover &::before {
     opacity: 1;
     animation: ${mosaicOut} 0.8s ease forwards;
@@ -553,7 +490,6 @@ const MosaicHover = ({
 }) => {
   const cells = [];
   const baseDelay = 15;
-
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       const delay = (x + y) * baseDelay;
@@ -567,12 +503,11 @@ const MosaicHover = ({
       );
     }
   }
-
   return (
     <MosaicRoot
       $h={height}
       $hMd={heightMd}
-      $border="5px solid #b96f33"
+      $border="4px solid #b96f33"
       onClick={onClick}
     >
       <MosaicImg src={src} alt={alt} loading="lazy" $pos={pos} />
@@ -583,34 +518,30 @@ const MosaicHover = ({
   );
 };
 
-/* ===================== Values Section ===================== */
+/* ===================== Values Section (inchangé) ===================== */
 const ValuesSection = styled.section`
   margin: 6rem 0;
   padding: 3rem 1rem;
   position: relative;
-
   @media (min-width: 768px) {
     margin: 8rem 0;
     padding: 4rem 2rem;
   }
 `;
-
 const ValuesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
   max-width: 1200px;
   margin: 0 auto;
-
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
   }
 `;
-
 const ValueCard = styled(motion.div)`
-  padding: 2.5rem 2rem;
-  background: white;
+  padding: 2.2rem 1.6rem;
+  background: #fff;
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
@@ -619,24 +550,20 @@ const ValueCard = styled(motion.div)`
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
   }
-
   &:nth-child(2) {
     border-image: linear-gradient(90deg, #a07753, #8a6248) 1;
   }
-
   &:nth-child(3) {
     border-image: linear-gradient(90deg, #8a6248, #011d23) 1;
   }
 `;
-
 const ValueIcon = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   background: linear-gradient(
     135deg,
@@ -646,12 +573,11 @@ const ValueIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.2rem;
   transition: all 0.3s ease;
   animation: ${float} 6s ease-in-out infinite;
-
   ${ValueCard}:hover & {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.08) rotate(5deg);
     background: linear-gradient(
       135deg,
       rgba(185, 111, 51, 0.2),
@@ -659,38 +585,31 @@ const ValueIcon = styled.div`
     );
     animation: none;
   }
-
   svg {
     color: #b96f33;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
   }
 `;
-
 const ValueTitle = styled.h3`
   color: #011d23;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.05rem, 3.4vw, 1.35rem);
   font-weight: 700;
 `;
-
 const ValueDescription = styled.p`
   color: #5a5a5a;
-  line-height: 1.7;
-  font-size: 1rem;
+  line-height: 1.65;
+  font-size: clamp(0.95rem, 3.2vw, 1rem);
 `;
 
-/* ===================== Particles ===================== */
+/* ===================== Particles & Modal & CTA (inchangés) ===================== */
 const ParticlesContainer = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 1;
 `;
-
 const Particle = styled.div`
   position: absolute;
   width: 4px;
@@ -699,14 +618,9 @@ const Particle = styled.div`
   background: rgba(185, 111, 51, 0.6);
   animation: ${particleBurst} 1.5s ease-out forwards;
 `;
-
-/* ===================== Modal ===================== */
 const ModalOverlay = styled(motion.div)`
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(1, 29, 35, 0.95);
   display: flex;
   align-items: center;
@@ -714,9 +628,8 @@ const ModalOverlay = styled(motion.div)`
   z-index: 1000;
   padding: 2rem;
 `;
-
 const ModalContent = styled(motion.div)`
-  background: white;
+  background: #fff;
   border-radius: 20px;
   max-width: 900px;
   width: 100%;
@@ -726,26 +639,23 @@ const ModalContent = styled(motion.div)`
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   animation: ${scaleIn} 0.4s ease-out;
 `;
-
 const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
   background: linear-gradient(90deg, #b96f33, #a07753);
-  color: white;
+  color: #fff;
 `;
-
 const ModalTitle = styled.h2`
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
 `;
-
 const CloseButton = styled.button`
   background: transparent;
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
@@ -753,125 +663,104 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-
   &:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: rotate(90deg);
   }
 `;
-
 const ModalBody = styled.div`
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-
+  gap: 1.5rem;
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 `;
-
 const ModalImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 280px;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-
   @media (min-width: 768px) {
     height: 100%;
   }
 `;
-
 const ModalText = styled.div`
   h3 {
     color: #011d23;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
-
   p {
     color: #5a5a5a;
     line-height: 1.7;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
   }
 `;
-
 const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
 `;
-
 const ContactButton = styled.a`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
   background: linear-gradient(90deg, #b96f33, #a07753);
-  color: white;
+  color: #fff;
   text-decoration: none;
   border-radius: 50px;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s ease;
   width: fit-content;
-
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(185, 111, 51, 0.3);
   }
 `;
-
-/* ===================== CTA Section ===================== */
 const CtaSection = styled.section`
-  padding: 4rem 1rem;
+  padding: 3.2rem 1rem;
   background: linear-gradient(135deg, #011d23 0%, #0a272f 100%);
   text-align: center;
-  color: white;
+  color: #fff;
   position: relative;
   overflow: hidden;
-
   @media (min-width: 768px) {
     padding: 6rem 2rem;
   }
 `;
-
 const CtaTitle = styled.h2`
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
+  font-size: clamp(1.6rem, 4.6vw, 3rem);
+  margin-bottom: 1rem;
+  font-weight: 800;
   animation: ${fadeInUp} 0.8s ease-out;
-
-  @media (min-width: 768px) {
-    font-size: 3rem;
-  }
 `;
-
 const CtaText = styled.p`
-  font-size: 1.1rem;
+  font-size: clamp(0.98rem, 3.2vw, 1.1rem);
   max-width: 700px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.7;
+  margin: 0 auto 2rem;
+  line-height: 1.65;
   opacity: 0.9;
   animation: ${fadeInUp} 0.8s ease-out 0.2s both;
 `;
-
 const CtaButton = styled(motion.a)`
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 1.2rem 2.5rem;
+  padding: 1.05rem 2rem;
   background: linear-gradient(90deg, #b96f33, #a07753);
-  color: white;
+  color: #fff;
   text-decoration: none;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 3.5vw, 1.1rem);
   transition: all 0.3s ease;
   box-shadow: 0 10px 30px rgba(185, 111, 51, 0.3);
   animation: ${pulse} 2s ease-in-out infinite;
-
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(185, 111, 51, 0.4);
@@ -879,17 +768,16 @@ const CtaButton = styled(motion.a)`
   }
 `;
 
-/* ===================== Shimmer Effect ===================== */
+/* ===================== Page ===================== */
 const ShimmerText = styled.span`
   background: linear-gradient(90deg, #b96f33, #a07753, #b96f33);
   background-size: 200% 100%;
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: ${shimmer} 3s infinite linear;
 `;
 
-/* ===================== Page ===================== */
 const APropos = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -921,15 +809,13 @@ const APropos = () => {
 
   const createParticles = (e) => {
     if (!containerRef.current) return;
-
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const newParticles = [];
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 12; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const distance = 50 + Math.random() * 100;
+      const distance = 40 + Math.random() * 90;
       newParticles.push({
         id: Date.now() + i,
         x,
@@ -938,12 +824,11 @@ const APropos = () => {
         ty: Math.sin(angle) * distance,
       });
     }
-
-    setParticles((prev) => [...prev, ...newParticles]);
-
-    setTimeout(() => {
-      setParticles((prev) => prev.filter((p) => !newParticles.includes(p)));
-    }, 1500);
+    setParticles((p) => [...p, ...newParticles]);
+    setTimeout(
+      () => setParticles((p) => p.filter((pp) => !newParticles.includes(pp))),
+      1500
+    );
   };
 
   const openModal = (member) => {
@@ -951,7 +836,6 @@ const APropos = () => {
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "unset";
@@ -1029,12 +913,10 @@ const APropos = () => {
         description="Découvrez l'équipe TIPTAMCode, spécialiste en création de sites web et applications sur mesure depuis 2021. Philosophie client-centrée et résultats concrets."
         keywords="développement web, équipe technique, création de sites, applications web, satisfaction client, TIPTAMCode"
       />
-
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify(generateStructuredData())}
         </script>
-
         <meta
           property="og:image"
           content="https://www.tiptamcode.com/img/tiptamecode.avif"
@@ -1054,14 +936,14 @@ const APropos = () => {
         <FloatingElement />
 
         <ParticlesContainer>
-          {particles.map((particle) => (
+          {particles.map((p) => (
             <Particle
-              key={particle.id}
+              key={p.id}
               style={{
-                left: `${particle.x}px`,
-                top: `${particle.y}px`,
-                "--tx": `${particle.tx}px`,
-                "--ty": `${particle.ty}px`,
+                left: `${p.x}px`,
+                top: `${p.y}px`,
+                "--tx": `${p.tx}px`,
+                "--ty": `${p.ty}px`,
               }}
             />
           ))}
@@ -1079,7 +961,7 @@ const APropos = () => {
               alt="Équipe TIPTAMCode collaborant sur un projet digital"
               rows={9}
               cols={12}
-              height="280px"
+              height="clamp(200px, 45vw, 300px)"
               heightMd="420px"
               pos="center 30%"
             />
@@ -1105,7 +987,7 @@ const APropos = () => {
               approche <Highlight>humaine du numérique</Highlight>. Depuis 2021,
               nous transformons les idées ambitieuses en solutions digitales
               pérennes, avec <Highlight>98% de satisfaction client</Highlight>{" "}
-              sur plus de 10 projets.
+              sur plus de 50 projets.
             </Description>
 
             <StatsGrid>
@@ -1117,8 +999,7 @@ const APropos = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <StatValue>
-                  <Rocket size={32} />
-                  10+
+                  <Rocket size={28} /> 50+
                 </StatValue>
                 <StatLabel>Projets innovants réalisés</StatLabel>
               </StatCard>
@@ -1131,8 +1012,7 @@ const APropos = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <StatValue>
-                  <Code size={32} />
-                  98%
+                  <Code size={28} /> 98%
                 </StatValue>
                 <StatLabel>Taux de satisfaction client</StatLabel>
               </StatCard>
@@ -1194,7 +1074,7 @@ const APropos = () => {
                   alt={`Portrait de ${member.name}`}
                   rows={8}
                   cols={8}
-                  height="300px"
+                  height="clamp(200px, 52vw, 300px)"
                   heightMd="380px"
                   pos="top"
                   onClick={() => openModal(member)}
