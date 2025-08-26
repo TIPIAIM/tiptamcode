@@ -69,7 +69,7 @@ const GradientText = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, #b96f33, #a07753);
+  background-image: linear-gradient(to right, #b35202, #f4f5f1);
 `;
 
 const MessageText = styled(motion.p)`
@@ -260,7 +260,7 @@ const Acueilapropos = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          TEAM -<GradientText> notre philosophie</GradientText>
+          TEAM -<GradientText> Notre philosophie</GradientText>
         </MainHeading>
 
         <MessageText
