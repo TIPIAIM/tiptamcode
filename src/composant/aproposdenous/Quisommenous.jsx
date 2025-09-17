@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -365,7 +365,6 @@ const FloatingElement = styled.div`
 const TeamSection = styled.section`
   margin-top: 5rem;
   padding: 4rem 0;
-  //  background: linear-gradient(to bottom right, #011d23, #0a272f);
   position: relative;
   overflow: hidden;
 
@@ -541,7 +540,7 @@ const Cell = styled.span`
   }
 `;
 
-const MosaicHover = ({
+const MosaicHover = React.memo(({
   src,
   alt,
   rows = 8,
@@ -551,22 +550,26 @@ const MosaicHover = ({
   pos,
   onClick,
 }) => {
-  const cells = [];
-  const baseDelay = 15;
-
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const delay = (x + y) * baseDelay;
-      cells.push(
-        <Cell
-          key={`${x}-${y}`}
-          style={{ "--x": x, "--y": y }}
-          $src={src}
-          $delay={delay}
-        />
-      );
+  const cells = useMemo(() => {
+    const baseDelay = 15;
+    const cellsArray = [];
+    
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const delay = (x + y) * baseDelay;
+        cellsArray.push(
+          <Cell
+            key={`${x}-${y}`}
+            style={{ "--x": x, "--y": y }}
+            $src={src}
+            $delay={delay}
+          />
+        );
+      }
     }
-  }
+    
+    return cellsArray;
+  }, [rows, cols, src]);
 
   return (
     <MosaicRoot
@@ -581,7 +584,9 @@ const MosaicHover = ({
       </MosaicOverlay>
     </MosaicRoot>
   );
-};
+});
+
+MosaicHover.displayName = 'MosaicHover';
 
 /* ===================== Values Section ===================== */
 const ValuesSection = styled.section`
@@ -675,7 +680,7 @@ const ValueTitle = styled.h3`
 `;
 
 const ValueDescription = styled.p`
-  color: #5a5a5a;
+  color: 5a5a5a;
   line-height: 1.7;
   font-size: 1rem;
 `;
@@ -700,7 +705,7 @@ const Particle = styled.div`
   animation: ${particleBurst} 1.5s ease-out forwards;
 `;
 
-/* ===================== Modal ===================== */
+/* ===================== Modal - Modifications pour la responsivité ===================== */
 const ModalOverlay = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -709,10 +714,16 @@ const ModalOverlay = styled(motion.div)`
   bottom: 0;
   background: rgba(1, 29, 35, 0.95);
   display: flex;
-  align-items: center;
+  align-items: ${({ $isMobile }) => ($isMobile ? 'flex-start' : 'center')};
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1rem;
+  overflow-y: auto;
+
+  @media (max-width: 767px) {
+    padding: 0.5rem;
+    align-items: flex-start;
+  }
 `;
 
 const ModalContent = styled(motion.div)`
@@ -720,11 +731,20 @@ const ModalContent = styled(motion.div)`
   border-radius: 20px;
   max-width: 900px;
   width: 100%;
-  max-height: 90vh;
+  max-height: ${({ $isMobile }) => ($isMobile ? '90%' : '90vh')};
   overflow: hidden;
   position: relative;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   animation: ${scaleIn} 0.4s ease-out;
+  margin: ${({ $isMobile }) => ($isMobile ? '2rem 0' : '0')};
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 480px) {
+    border-radius: 16px;
+    max-height: 95%;
+    margin: 1rem 0;
+  }
 `;
 
 const ModalHeader = styled.div`
@@ -734,12 +754,21 @@ const ModalHeader = styled.div`
   padding: 1.5rem 2rem;
   background: linear-gradient(90deg, #b96f33, #a07753);
   color: white;
+  flex-shrink: 0;
+
+  @media (max-width: 767px) {
+    padding: 1.25rem 1.5rem;
+  }
 `;
 
 const ModalTitle = styled.h2`
   margin: 0;
   font-size: 1.8rem;
   font-weight: 700;
+
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -765,9 +794,13 @@ const ModalBody = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  overflow-y: auto;
+  max-height: ${({ $isMobile }) => ($isMobile ? 'calc(90vh - 70px)' : 'none')};
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;       // ⬅️ une seule colonne quand l’image est cachée
+    padding: 2rem;
+    gap: 2rem;
   }
 `;
 
@@ -775,11 +808,15 @@ const ModalImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 2px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
-  @media (min-width: 768px) {
-    height: 100%;
+  @media (max-width: 767px) {
+    height: 350px;
+  }
+
+  @media (max-width: 480px) {
+    height: 380px;
   }
 `;
 
@@ -788,6 +825,10 @@ const ModalText = styled.div`
     color: #011d23;
     margin-bottom: 1rem;
     font-size: 1.5rem;
+    
+    @media (max-width: 767px) {
+      font-size: 1.3rem;
+    }
   }
 
   p {
@@ -802,6 +843,11 @@ const ContactInfo = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+
+  @media (max-width: 480px) {
+    margin-top: 1.5rem;
+    gap: 0.8rem;
+  }
 `;
 
 const ContactButton = styled.a`
@@ -820,6 +866,11 @@ const ContactButton = styled.a`
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(185, 111, 51, 0.3);
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem 1.25rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -894,78 +945,12 @@ const APropos = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [particles, setParticles] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
+  const modalRef = useRef(null);
 
-  const generateStructuredData = () => ({
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    name: "À propos de TIPTAMCode",
-    description:
-      "Découvrez notre équipe et notre philosophie de développement web centrée sur l'humain et les résultats concrets.",
-    publisher: {
-      "@type": "Organization",
-      name: "TIPTAMCode",
-      logo: "https://www.tiptamcode.com/tiptamcode.avif",
-      sameAs: [
-        "https://www.linkedin.com/company/tiptamcode",
-        "https://twitter.com/tiptamcode",
-      ],
-    },
-    image: {
-      "@type": "ImageObject",
-      url: "https://www.tiptamcode.com/img/tiptamcode.avif",
-      width: 1200,
-      height: 630,
-    },
-  });
-
-  const createParticles = (e) => {
-    if (!containerRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const newParticles = [];
-    for (let i = 0; i < 15; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 50 + Math.random() * 100;
-      newParticles.push({
-        id: Date.now() + i,
-        x,
-        y,
-        tx: Math.cos(angle) * distance,
-        ty: Math.sin(angle) * distance,
-      });
-    }
-
-    setParticles((prev) => [...prev, ...newParticles]);
-
-    setTimeout(() => {
-      setParticles((prev) => prev.filter((p) => !newParticles.includes(p)));
-    }, 1500);
-  };
-
-  const openModal = (member) => {
-    setSelectedMember(member);
-    setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
-
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.keyCode === 27) closeModal();
-    };
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, []);
-
-  const teamMembers = [
+  // Optimisation: Mémoriser les données de l'équipe
+  const teamMembers = useMemo(() => [
     {
       name: "Mamadou Marietou",
       role: "Co-Fondateur & Expert Formation",
@@ -999,9 +984,10 @@ const APropos = () => {
       linkedin: "#",
       twitter: "#",
     },
-  ];
+  ], []);
 
-  const values = [
+  // Optimisation: Mémoriser les valeurs
+  const values = useMemo(() => [
     {
       icon: <Heart size={32} />,
       title: "Approche Humaine",
@@ -1020,7 +1006,117 @@ const APropos = () => {
       description:
         "Nous croyons en une communication ouverte et une collaboration étroite avec nos clients pour transformer leurs visions en réalité digitale.",
     },
-  ];
+  ], []);
+
+  // Détection de la taille d'écran
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Vérifier au chargement
+    checkMobile();
+    
+    // Écouter les changements de taille
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  // Optimisation: Mémoriser la fonction de génération de données structurées
+  const generateStructuredData = useCallback(() => ({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "À propos de TIPTAMCode",
+    description:
+      "Découvrez notre équipe et notre philosophie de développement web centrée sur l'humain et les résultats concrets.",
+    publisher: {
+      "@type": "Organization",
+      name: "TIPTAMCode",
+      logo: "https://www.tiptamcode.com/tiptamcode.avif",
+      sameAs: [
+        "https://www.linkedin.com/company/tiptamcode",
+        "https://twitter.com/tiptamcode",
+      ],
+    },
+    image: {
+      "@type": "ImageObject",
+      url: "https://www.tiptamcode.com/img/tiptamcode.avif",
+      width: 1200,
+      height: 630,
+    },
+  }), []);
+
+  // Optimisation: Mémoriser la création de particules
+  const createParticles = useCallback((e) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const newParticles = [];
+    for (let i = 0; i < 15; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 50 + Math.random() * 100;
+      newParticles.push({
+        id: Date.now() + i,
+        x,
+        y,
+        tx: Math.cos(angle) * distance,
+        ty: Math.sin(angle) * distance,
+      });
+    }
+
+    setParticles((prev) => [...prev, ...newParticles]);
+
+    setTimeout(() => {
+      setParticles((prev) => prev.filter((p) => !newParticles.includes(p)));
+    }, 1500);
+  }, []);
+
+  // Optimisation: Mémoriser l'ouverture du modal
+  const openModal = useCallback((member) => {
+    setSelectedMember(member);
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  // Optimisation: Mémoriser la fermeture du modal
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedMember(null);
+    document.body.style.overflow = "unset";
+  }, []);
+
+  // Gestionnaire d'événement pour la touche Échap
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.keyCode === 27) closeModal();
+    };
+    
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [closeModal]);
+
+  // Gestionnaire de clic en dehors du modal
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        closeModal();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isModalOpen, closeModal]);
 
   return (
     <>
@@ -1251,12 +1347,15 @@ const APropos = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
+            $isMobile={isMobile}
           >
             <ModalContent
+              ref={modalRef}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
+              $isMobile={isMobile}
             >
               <ModalHeader>
                 <ModalTitle>{selectedMember.name}</ModalTitle>
@@ -1264,11 +1363,11 @@ const APropos = () => {
                   <X size={24} />
                 </CloseButton>
               </ModalHeader>
-              <ModalBody>
-                <ModalImage
+              <ModalBody $isMobile={isMobile}>
+               {/* <ModalImage
                   src={selectedMember.photo}
                   alt={selectedMember.name}
-                />
+                />*/}
                 <ModalText>
                   <h3>{selectedMember.role}</h3>
                   <p>{selectedMember.description}</p>
