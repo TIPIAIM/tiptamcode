@@ -584,7 +584,7 @@ const Realisation3 = () => {
         duration: "1 mois",
         role: "Développement & Intégration",
         status: "Terminer",
-        link: "https://www.semygimmobilier.vercel.app",
+        link: "https://semygimmobilier.vercel.app",
         fullDescription:
           "SEMYG centralise la publication d’annonces, la prise de rendez-vous et le suivi des prospects. Recherche multi-critères, cartes interactives, tableau de bord commercial, export rapports, et intégrations paiement/réservation.",
       },
